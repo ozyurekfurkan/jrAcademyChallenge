@@ -6,5 +6,7 @@ target 'JRAcademyChallenge' do
   use_frameworks!
 
   # Pods for JRAcademyChallenge
-  pod 'Carbon'
+ pod 'Carbon'
+ pod 'SnapKit', '~> 5.6'
+ pod 'Alamofire', '~> 5.7'
 end
