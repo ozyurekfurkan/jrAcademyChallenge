@@ -19,14 +19,14 @@ enum GameServiceEndPoint: String {
 }
 
 protocol IGameService {
-    func fetchAllDatas(response: @escaping ([GameModel]?) -> Void)
+    func fetchAllDatas(url:String,response: @escaping ([GameModel]?) -> Void)
 }
 
 
 struct GameService: IGameService {
 
-    func fetchAllDatas(response: @escaping ([GameModel]?) -> Void) {
-        AF.request(GameServiceEndPoint.path()).responseDecodable(of: WelcomePageResponse.self) { (model) in
+  func fetchAllDatas(url:String,response: @escaping ([GameModel]?) -> Void) {
+          AF.request(GameServiceEndPoint.path()).responseDecodable(of: WelcomePageResponse.self) { (model) in
             guard let data = model.value else {
                 response(nil)
                 return
