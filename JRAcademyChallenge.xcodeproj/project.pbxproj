@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		1B34010754834BF6EE27F271 /* Pods_JRAcademyChallenge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 078D446CCED92A4B2CDB48D1 /* Pods_JRAcademyChallenge.framework */; };
+		EB177A622A278D390025E100 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB177A612A278D390025E100 /* GameView.swift */; };
+		EB177A642A278D720025E100 /* GameHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB177A632A278D720025E100 /* GameHomeViewController.swift */; };
 		EBBC5EE62A260D80009E6A60 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBBC5EE52A260D80009E6A60 /* AppDelegate.swift */; };
 		EBBC5EE82A260D80009E6A60 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBBC5EE72A260D80009E6A60 /* SceneDelegate.swift */; };
 		EBBC5EEA2A260D80009E6A60 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBBC5EE92A260D80009E6A60 /* ViewController.swift */; };
@@ -20,6 +22,8 @@
 		078D446CCED92A4B2CDB48D1 /* Pods_JRAcademyChallenge.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JRAcademyChallenge.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		84F3E44D21AE2F5F4E556A40 /* Pods-JRAcademyChallenge.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JRAcademyChallenge.release.xcconfig"; path = "Target Support Files/Pods-JRAcademyChallenge/Pods-JRAcademyChallenge.release.xcconfig"; sourceTree = "<group>"; };
 		DF763DC5273EDD242DCF2624 /* Pods-JRAcademyChallenge.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JRAcademyChallenge.debug.xcconfig"; path = "Target Support Files/Pods-JRAcademyChallenge/Pods-JRAcademyChallenge.debug.xcconfig"; sourceTree = "<group>"; };
+		EB177A612A278D390025E100 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
+		EB177A632A278D720025E100 /* GameHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameHomeViewController.swift; sourceTree = "<group>"; };
 		EBBC5EE22A260D80009E6A60 /* JRAcademyChallenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JRAcademyChallenge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EBBC5EE52A260D80009E6A60 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EBBC5EE72A260D80009E6A60 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -56,7 +60,6 @@
 				DF763DC5273EDD242DCF2624 /* Pods-JRAcademyChallenge.debug.xcconfig */,
 				84F3E44D21AE2F5F4E556A40 /* Pods-JRAcademyChallenge.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -88,6 +91,8 @@
 				EBBC5EEE2A260D81009E6A60 /* Assets.xcassets */,
 				EBBC5EF02A260D81009E6A60 /* LaunchScreen.storyboard */,
 				EBBC5EF32A260D81009E6A60 /* Info.plist */,
+				EB177A612A278D390025E100 /* GameView.swift */,
+				EB177A632A278D720025E100 /* GameHomeViewController.swift */,
 			);
 			path = JRAcademyChallenge;
 			sourceTree = "<group>";
@@ -207,8 +212,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EB177A642A278D720025E100 /* GameHomeViewController.swift in Sources */,
 				EBBC5EEA2A260D80009E6A60 /* ViewController.swift in Sources */,
 				EBBC5EE62A260D80009E6A60 /* AppDelegate.swift in Sources */,
+				EB177A622A278D390025E100 /* GameView.swift in Sources */,
 				EBBC5EE82A260D80009E6A60 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
