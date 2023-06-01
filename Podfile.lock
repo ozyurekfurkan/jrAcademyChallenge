@@ -3,11 +3,13 @@ PODS:
   - Carbon (0.3.0):
     - DifferenceKit/Core (~> 1.1)
   - DifferenceKit/Core (1.3.0)
+  - Kingfisher (7.6.2)
   - SnapKit (5.6.0)
 
 DEPENDENCIES:
   - Alamofire (~> 5.7)
   - Carbon
+  - Kingfisher
   - SnapKit (~> 5.6)
 
 SPEC REPOS:
@@ -15,14 +17,16 @@ SPEC REPOS:
     - Alamofire
     - Carbon
     - DifferenceKit
+    - Kingfisher
     - SnapKit
 
 SPEC CHECKSUMS:
   Alamofire: 0123a34370cb170936ae79a8df46cc62b2edeb88
   Carbon: 184148b60fddb7d069a9d35a02e12b20f44aa7a8
   DifferenceKit: ab185c4d7f9cef8af3fcf593e5b387fb81e999ca
+  Kingfisher: 6c5449c6450c5239166510ba04afe374a98afc4f
   SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
 
-PODFILE CHECKSUM: d34f5fff4a56fe711093b66a63d54804efb5f5ca
+PODFILE CHECKSUM: 25952a31ff433573dd97660c8377e6a2da5a0757
 
 COCOAPODS: 1.12.1

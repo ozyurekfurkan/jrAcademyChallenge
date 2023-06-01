@@ -9,4 +9,5 @@ target 'JRAcademyChallenge' do
  pod 'Carbon'
  pod 'SnapKit', '~> 5.6'
  pod 'Alamofire', '~> 5.7'
+ pod 'Kingfisher'
 end

@@ -34,7 +34,7 @@ class GameView: UITableViewCell {
       make.top.equalToSuperview().offset(16)
       make.right.equalToSuperview().offset(-16)
       make.left.equalTo(gameImage.snp.right).offset(16)
-      make.height.equalTo(27)
+      make.bottom.equalTo(metaCriticLabel.snp.top)
     }
     metaCriticLabel.snp.makeConstraints { make in
       make.top.equalTo(gameTitle.snp.bottom).offset(41)
@@ -64,6 +64,7 @@ class GameView: UITableViewCell {
       make.width.equalTo(104)
     }
     gameTitle.font = UIFont.boldSystemFont(ofSize: 20)
+    gameTitle.numberOfLines = 0
     metaCriticLabel.font = UIFont.boldSystemFont(ofSize: 14)
     metaCriticScoreLabel.font = UIFont.boldSystemFont(ofSize: 18)
     gameGenre.font = UIFont.boldSystemFont(ofSize: 13)
