@@ -16,11 +16,14 @@ protocol IGameHomeViewModel {
   func setDelegate(output: GamesOutPut)
 }
 final class GameHomeViewModel: IGameHomeViewModel {
+  
   var gameOutPut: GamesOutPut?
   var urlString = "https://api.rawg.io/api/games?key=3be8af6ebf124ffe81d90f514e59856c"
+  
   func setDelegate(output: GamesOutPut) {
     gameOutPut = output
   }
+  
   var games: [GameModel] = []
   let gameService: IGameService
   

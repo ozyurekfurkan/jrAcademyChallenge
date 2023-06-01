@@ -21,7 +21,6 @@ class GameHomeViewController: UIViewController {
   private let labelTitle: UILabel = UILabel()
   private let searchBar = UISearchBar()
   private lazy var results: [GameModel] = []
-  var dataDescription = "metacritic: "
   
   var viewModel: GameHomeViewModel = GameHomeViewModel()
   
@@ -95,22 +94,7 @@ extension GameHomeViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: GameView.identifier, for: indexPath) as! GameView
-        cell.gameTitle.text = results[indexPath.row].name
-        cell.metaCriticLabel.text = dataDescription
-        if let genres = results[indexPath.row].genres {
-            let genreNames = genres.compactMap { $0.name }
-            if !genreNames.isEmpty {
-                let joinedGenreNames = genreNames.joined(separator: ", ")
-                cell.gameGenre.text = joinedGenreNames
-            } else {
-                cell.gameGenre.text = "N/A"
-            }
-        }
-        cell.metaCriticScoreLabel.text = results[indexPath.row].metacritic?.description
-        if let urlString = results[indexPath.row].backgroundImage {
-          let url = URL(string: urlString)
-          cell.gameImage.kf.setImage(with: url)
-        }
+        cell.configureCell(model: results[indexPath.row])
         return cell
     }
 }

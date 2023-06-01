@@ -15,7 +15,6 @@
 		EB177A662A2887630025E100 /* GameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB177A652A2887630025E100 /* GameModel.swift */; };
 		EBBC5EE62A260D80009E6A60 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBBC5EE52A260D80009E6A60 /* AppDelegate.swift */; };
 		EBBC5EE82A260D80009E6A60 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBBC5EE72A260D80009E6A60 /* SceneDelegate.swift */; };
-		EBBC5EEA2A260D80009E6A60 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBBC5EE92A260D80009E6A60 /* ViewController.swift */; };
 		EBBC5EEF2A260D81009E6A60 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EBBC5EEE2A260D81009E6A60 /* Assets.xcassets */; };
 		EBBC5EF22A260D81009E6A60 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EBBC5EF02A260D81009E6A60 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
@@ -32,7 +31,6 @@
 		EBBC5EE22A260D80009E6A60 /* JRAcademyChallenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JRAcademyChallenge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EBBC5EE52A260D80009E6A60 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EBBC5EE72A260D80009E6A60 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		EBBC5EE92A260D80009E6A60 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		EBBC5EEE2A260D81009E6A60 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EBBC5EF12A260D81009E6A60 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EBBC5EF32A260D81009E6A60 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -90,7 +88,6 @@
 			children = (
 				EBBC5EE52A260D80009E6A60 /* AppDelegate.swift */,
 				EBBC5EE72A260D80009E6A60 /* SceneDelegate.swift */,
-				EBBC5EE92A260D80009E6A60 /* ViewController.swift */,
 				EBBC5EEE2A260D81009E6A60 /* Assets.xcassets */,
 				EBBC5EF02A260D81009E6A60 /* LaunchScreen.storyboard */,
 				EBBC5EF32A260D81009E6A60 /* Info.plist */,
@@ -220,7 +217,6 @@
 				EB177A642A278D720025E100 /* GameHomeViewController.swift in Sources */,
 				EB055F952A28C0130038FA00 /* GameHomeViewModel.swift in Sources */,
 				EB055F922A28BA6E0038FA00 /* Service.swift in Sources */,
-				EBBC5EEA2A260D80009E6A60 /* ViewController.swift in Sources */,
 				EBBC5EE62A260D80009E6A60 /* AppDelegate.swift in Sources */,
 				EB177A622A278D390025E100 /* GameView.swift in Sources */,
 				EBBC5EE82A260D80009E6A60 /* SceneDelegate.swift in Sources */,

@@ -10,7 +10,7 @@ import SnapKit
 
 class GameView: UITableViewCell {
   static let identifier: String = "gameViewCell"
-  
+  var dataDescription = "metacritic: "
   var gameTitle: UILabel = UILabel()
   var metaCriticLabel: UILabel = UILabel()
   var metaCriticScoreLabel: UILabel = UILabel()
@@ -71,6 +71,25 @@ class GameView: UITableViewCell {
     gameGenre.textColor = .lightGray
     metaCriticScoreLabel.textColor = .red
     backgroundColor = .white
+  }
+  
+  func configureCell(model: GameModel) {
+    gameTitle.text = model.name
+    metaCriticLabel.text = dataDescription
+    if let genres = model.genres {
+      let genreNames = genres.compactMap { $0.name }
+      if !genreNames.isEmpty {
+        let joinedGenreNames = genreNames.joined(separator: ", ")
+        gameGenre.text = joinedGenreNames
+      } else {
+        gameGenre.text = "N/A"
+      }
+    }
+    metaCriticScoreLabel.text = model.metacritic?.description
+    if let urlString = model.backgroundImage {
+      let url = URL(string: urlString)
+      gameImage.kf.setImage(with: url)
+    }
   }
   
   required init?(coder: NSCoder) {
