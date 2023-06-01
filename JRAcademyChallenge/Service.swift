@@ -8,20 +8,32 @@
 import Foundation
 import Alamofire
 
-func makeRequest<T: Decodable>(url: URLConvertible, method: HTTPMethod, completion: @escaping (Result<T, Error>) -> Void) {
-    AF.request(url, method: method).responseData { response in
-        switch response.result {
-        case .failure(let error):
-            completion(.failure(error))
-        case .success(let data):
-            do {
-                let decoder = JSONDecoder()
-                decoder.keyDecodingStrategy = .convertFromSnakeCase
-                let result = try decoder.decode(T.self, from: data)
-                completion(.success(result))
-            } catch {
-                completion(.failure(error))
+enum GameServiceEndPoint: String {
+
+    case BASE_URL = "https://api.rawg.io/api"
+    case PATH = "/games?key=3be8af6ebf124ffe81d90f514e59856c"
+
+    static func path() -> String {
+        return "\(BASE_URL.rawValue)\(PATH.rawValue)"
+    }
+}
+
+protocol IGameService {
+    func fetchAllDatas(response: @escaping ([GameModel]?) -> Void)
+}
+
+
+struct GameService: IGameService {
+
+    func fetchAllDatas(response: @escaping ([GameModel]?) -> Void) {
+        AF.request(GameServiceEndPoint.path()).responseDecodable(of: WelcomePageResponse.self) { (model) in
+            guard let data = model.value else {
+                response(nil)
+                return
             }
+            print(data.results)
+            response(data.results)
         }
     }
+
 }

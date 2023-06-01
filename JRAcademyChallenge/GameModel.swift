@@ -20,7 +20,7 @@ struct GameModel: Codable {
   
   enum CodingKeys: String, CodingKey {
     case id, name
-    case backgroundImage
+    case backgroundImage = "background_image"
     case metacritic
     case genres
   }

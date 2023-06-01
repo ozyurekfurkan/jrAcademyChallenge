@@ -10,5 +10,29 @@
             </PersistentString>
          </PersistentStrings>
       </ContextState>
+      <ContextState
+         contextName = "closure #1 in GameHomeViewModel.fetchItems():GameHomeViewModel.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self?.games">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "GameHomeViewController.tableView(_:numberOfRowsInSection:):GameHomeViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "results.count">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "GameHomeViewController.saveDatas(values:):GameHomeViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "results">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
    </ContextStates>
 </VariablesViewState>
