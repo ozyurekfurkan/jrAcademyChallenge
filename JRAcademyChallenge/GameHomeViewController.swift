@@ -16,31 +16,26 @@ class GameHomeViewController: UIViewController {
   private let tableView: UITableView = UITableView()
   private let labelTitle: UILabel = UILabel()
   private let searchBar = UISearchBar()
-  
+  let apiUrl = "https://api.rawg.io/api/games?key=3be8af6ebf124ffe81d90f514e59856c"
   var result: WelcomePageResponse?
   var dataDescription = "metacritic: "
+  var isFunctionRunning = false
   
   override func viewDidLoad() {
     self.view.backgroundColor = .white
     fetchGameData()
   }
   
-  func fetchGameData(){
-      AF.request("https://api.rawg.io/api/games?key=3be8af6ebf124ffe81d90f514e59856c", method: .get,encoding: URLEncoding.default)
-          .responseData { response in
-              switch response.result {
-              case .failure(let error):
-                  print(error)
-              case .success(let data):
-                  do {
-                      let decoder = JSONDecoder()
-                      decoder.keyDecodingStrategy = .convertFromSnakeCase
-                      self.result = try decoder.decode(WelcomePageResponse.self, from: data)
-                      self.configure()
-                  } catch { print(error) }
-              }
-      }
-    tableView.reloadData()
+  func fetchGameData() {
+    makeRequest(url: apiUrl, method: .get) { (result: Result<WelcomePageResponse, Error>) in
+        switch result {
+        case .success(let response):
+            self.result = response
+            self.configure()
+        case .failure(let error):
+            print(error)
+        }
+    }
   }
   
   func configure() {
