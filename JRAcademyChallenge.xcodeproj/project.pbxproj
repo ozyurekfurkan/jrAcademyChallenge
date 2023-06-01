@@ -10,6 +10,7 @@
 		1B34010754834BF6EE27F271 /* Pods_JRAcademyChallenge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 078D446CCED92A4B2CDB48D1 /* Pods_JRAcademyChallenge.framework */; };
 		EB177A622A278D390025E100 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB177A612A278D390025E100 /* GameView.swift */; };
 		EB177A642A278D720025E100 /* GameHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB177A632A278D720025E100 /* GameHomeViewController.swift */; };
+		EB177A662A2887630025E100 /* GameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB177A652A2887630025E100 /* GameModel.swift */; };
 		EBBC5EE62A260D80009E6A60 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBBC5EE52A260D80009E6A60 /* AppDelegate.swift */; };
 		EBBC5EE82A260D80009E6A60 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBBC5EE72A260D80009E6A60 /* SceneDelegate.swift */; };
 		EBBC5EEA2A260D80009E6A60 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBBC5EE92A260D80009E6A60 /* ViewController.swift */; };
@@ -24,6 +25,7 @@
 		DF763DC5273EDD242DCF2624 /* Pods-JRAcademyChallenge.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JRAcademyChallenge.debug.xcconfig"; path = "Target Support Files/Pods-JRAcademyChallenge/Pods-JRAcademyChallenge.debug.xcconfig"; sourceTree = "<group>"; };
 		EB177A612A278D390025E100 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 		EB177A632A278D720025E100 /* GameHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameHomeViewController.swift; sourceTree = "<group>"; };
+		EB177A652A2887630025E100 /* GameModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameModel.swift; sourceTree = "<group>"; };
 		EBBC5EE22A260D80009E6A60 /* JRAcademyChallenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JRAcademyChallenge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EBBC5EE52A260D80009E6A60 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EBBC5EE72A260D80009E6A60 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 				EBBC5EF32A260D81009E6A60 /* Info.plist */,
 				EB177A612A278D390025E100 /* GameView.swift */,
 				EB177A632A278D720025E100 /* GameHomeViewController.swift */,
+				EB177A652A2887630025E100 /* GameModel.swift */,
 			);
 			path = JRAcademyChallenge;
 			sourceTree = "<group>";
@@ -217,6 +220,7 @@
 				EBBC5EE62A260D80009E6A60 /* AppDelegate.swift in Sources */,
 				EB177A622A278D390025E100 /* GameView.swift in Sources */,
 				EBBC5EE82A260D80009E6A60 /* SceneDelegate.swift in Sources */,
+				EB177A662A2887630025E100 /* GameModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
