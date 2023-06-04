@@ -19,19 +19,22 @@ class GameHomeViewController: UIViewController {
   
   private let tableView: UITableView = UITableView()
   private let searchBar = UISearchBar()
+  var searchString: String = ""
   private lazy var results: [GameModel] = []
   var isLoadingNextPage = false
   
   var viewModel: GameHomeViewModel = GameHomeViewModel()
   
   override func viewDidLoad() {
+    let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+    view.addGestureRecognizer(tapGesture)
     fetchGameData()
   }
   
   func fetchGameData() {
       configure()
       viewModel.setDelegate(output: self)
-      viewModel.fetchItems()
+      viewModel.fetchItems(search: searchString)
 
   }
   
@@ -39,6 +42,7 @@ class GameHomeViewController: UIViewController {
     tableView.register(GameView.self, forCellReuseIdentifier: GameView.identifier)
     tableView.dataSource = self
     tableView.delegate = self
+    searchBar.delegate = self
     tableView.rowHeight = 136
 
     self.view.addSubview(tableView)
@@ -88,7 +92,23 @@ extension GameHomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.row + 1 == results.count {
-          viewModel.fetchItems()
+          viewModel.fetchItems(search: nil)
         }
     }
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        view.endEditing(true)
+    }
+}
+
+extension GameHomeViewController: UISearchBarDelegate {
+  func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+    if let searchText = searchBar.text?.replacingOccurrences(of: " ", with: "%20"), searchText.count >= 3 {
+        results = []
+        viewModel.fetchItems(search: searchText)
+        tableView.reloadData()
+    }
+  }
+  @objc private func handleTap() {
+       view.endEditing(true) // Close the keyboard
+   }
 }

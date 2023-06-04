@@ -8,7 +8,7 @@
 import Foundation
 
 protocol IGameHomeViewModel {
-  func fetchItems()
+  func fetchItems(search: String?)
   
   var games: [GameModel] { get set }
   var gameService: IGameService { get }
@@ -16,11 +16,11 @@ protocol IGameHomeViewModel {
   func setDelegate(output: GamesOutPut)
 }
 final class GameHomeViewModel: IGameHomeViewModel {
-  
+
   var gameOutPut: GamesOutPut?
-  var urlString = "https://api.rawg.io/api/games?key=3be8af6ebf124ffe81d90f514e59856c"
   var isNextPageExist: Bool = false
   var nextPageUrl: String?
+  var searchUrl: String?
   
   func setDelegate(output: GamesOutPut) {
     gameOutPut = output
@@ -33,20 +33,35 @@ final class GameHomeViewModel: IGameHomeViewModel {
       gameService = GameService()
   }
   
-  func fetchItems() {
+  func fetchItems(search: String?) {
     if isNextPageExist {
-      urlString = nextPageUrl ?? ""
+      GameServiceEndPoint.BASE_URL = nextPageUrl ?? ""
     }
-    gameService.fetchAllDatas(url: urlString) { gameModels,nextPage in
-        if let gameModels = gameModels {
-          self.games = gameModels
-          self.gameOutPut?.saveDatas(values: self.games)
-        } else {
-            print("Failed to fetch game models.")
+    if let search = search {
+      gameService.fetchAllDatas(url: GameServiceEndPoint.searchPath(search: search)) { gameModels,nextPage in
+          if let gameModels = gameModels {
+            self.games = gameModels
+            self.gameOutPut?.saveDatas(values: self.games)
+          } else {
+              print("Failed to fetch game models.")
+          }
+        if let nextPage = nextPage {
+          self.isNextPageExist = true
+          self.nextPageUrl = nextPage
         }
-      if let nextPage = nextPage {
-        self.isNextPageExist = true
-        self.nextPageUrl = nextPage
+      }
+    } else {
+      gameService.fetchAllDatas(url: GameServiceEndPoint.BASE_URL) { gameModels,nextPage in
+          if let gameModels = gameModels {
+            self.games = gameModels
+            self.gameOutPut?.saveDatas(values: self.games)
+          } else {
+              print("Failed to fetch game models.")
+          }
+        if let nextPage = nextPage {
+          self.isNextPageExist = true
+          self.nextPageUrl = nextPage
+        }
       }
     }
   }
