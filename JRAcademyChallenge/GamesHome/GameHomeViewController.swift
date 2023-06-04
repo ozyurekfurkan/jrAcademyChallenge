@@ -18,14 +18,12 @@ protocol GamesOutPut {
 class GameHomeViewController: UIViewController {
   
   private let tableView: UITableView = UITableView()
-  private let labelTitle: UILabel = UILabel()
   private let searchBar = UISearchBar()
   private lazy var results: [GameModel] = []
   
   var viewModel: GameHomeViewModel = GameHomeViewModel()
   
   override func viewDidLoad() {
-    self.view.backgroundColor = .white
     fetchGameData()
   }
   
@@ -42,28 +40,16 @@ class GameHomeViewController: UIViewController {
     tableView.delegate = self
     tableView.rowHeight = 136
 
-    self.view.addSubview(labelTitle)
     self.view.addSubview(tableView)
     self.view.addSubview(searchBar)
     
-    configureLabelTitle()
-    configureSearchBar()
+//    configureSearchBar()
     configureTableView()
-  }
-  
-  func configureLabelTitle() {
-    labelTitle.snp.makeConstraints { (make) in
-        make.top.equalToSuperview().offset(90)
-        make.left.equalTo(view).offset(16)
-        make.right.equalTo(view).offset(-16)
-    }
-    self.labelTitle.font = .boldSystemFont(ofSize: 34)
-    self.labelTitle.text = "GAMES"
   }
   
   func configureSearchBar() {
     searchBar.snp.makeConstraints { make in
-        make.top.equalTo(labelTitle.snp.bottom).offset(9)
+        make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
         make.leading.trailing.equalToSuperview()
     }
     searchBar.placeholder = "Search for the games"
