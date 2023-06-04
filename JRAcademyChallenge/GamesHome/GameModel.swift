@@ -8,6 +8,7 @@
 import Foundation
 
 struct WelcomePageResponse: Codable {
+  var next: String?
   var results: [GameModel]
 }
 

@@ -20,6 +20,7 @@ class GameHomeViewController: UIViewController {
   private let tableView: UITableView = UITableView()
   private let searchBar = UISearchBar()
   private lazy var results: [GameModel] = []
+  var isLoadingNextPage = false
   
   var viewModel: GameHomeViewModel = GameHomeViewModel()
   
@@ -43,7 +44,7 @@ class GameHomeViewController: UIViewController {
     self.view.addSubview(tableView)
     self.view.addSubview(searchBar)
     
-//    configureSearchBar()
+    configureSearchBar()
     configureTableView()
   }
   
@@ -57,17 +58,19 @@ class GameHomeViewController: UIViewController {
   
   func configureTableView() {
     tableView.snp.makeConstraints { make in
-        make.top.equalTo(searchBar.snp.bottom)
+          make.top.equalTo(searchBar.snp.bottom)
           make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
           make.left.equalTo(view.snp.left)
           make.right.equalTo(view.snp.right)
     }
+    tableView.separatorStyle = .none
+    tableView.tableFooterView = LoadingFooterView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 50))
   }
 }
 
 extension GameHomeViewController: GamesOutPut {
     func saveDatas(values: [GameModel]) {
-        results = values
+        results.append(contentsOf: values)
         tableView.reloadData()
     }
 }
@@ -82,5 +85,10 @@ extension GameHomeViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: GameView.identifier, for: indexPath) as! GameView
         cell.configureCell(model: results[indexPath.row])
         return cell
+    }
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if indexPath.row + 1 == results.count {
+          viewModel.fetchItems()
+        }
     }
 }

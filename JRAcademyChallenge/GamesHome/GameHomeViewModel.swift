@@ -19,6 +19,8 @@ final class GameHomeViewModel: IGameHomeViewModel {
   
   var gameOutPut: GamesOutPut?
   var urlString = "https://api.rawg.io/api/games?key=3be8af6ebf124ffe81d90f514e59856c"
+  var isNextPageExist: Bool = false
+  var nextPageUrl: String?
   
   func setDelegate(output: GamesOutPut) {
     gameOutPut = output
@@ -32,13 +34,20 @@ final class GameHomeViewModel: IGameHomeViewModel {
   }
   
   func fetchItems() {
-    gameService.fetchAllDatas(url: urlString) { gameModels in
+    if isNextPageExist {
+      urlString = nextPageUrl ?? ""
+    }
+    gameService.fetchAllDatas(url: urlString) { gameModels,nextPage in
         if let gameModels = gameModels {
           self.games = gameModels
           self.gameOutPut?.saveDatas(values: self.games)
         } else {
             print("Failed to fetch game models.")
         }
+      if let nextPage = nextPage {
+        self.isNextPageExist = true
+        self.nextPageUrl = nextPage
+      }
     }
   }
 }
