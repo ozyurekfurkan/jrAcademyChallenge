@@ -8,19 +8,19 @@
 import Foundation
 
 protocol IGameHomeViewModel {
-  func fetchItems(search: String?)
-  
+  func searchItems(search: String?)
+  func fetchItems()
   var games: [GameModel] { get set }
   var gameService: IGameService { get }
   var gameOutPut: GamesOutPut? { get }
   func setDelegate(output: GamesOutPut)
 }
 final class GameHomeViewModel: IGameHomeViewModel {
-
+  
   var gameOutPut: GamesOutPut?
   var isNextPageExist: Bool = false
   var nextPageUrl: String?
-  var searchUrl: String?
+  var urlString: String?
   
   func setDelegate(output: GamesOutPut) {
     gameOutPut = output
@@ -30,34 +30,45 @@ final class GameHomeViewModel: IGameHomeViewModel {
   let gameService: IGameService
   
   init() {
-      gameService = GameService()
+    gameService = GameService()
   }
   
-  func fetchItems(search: String?) {
+  func fetchItems() {
     if isNextPageExist {
-      GameServiceEndPoint.BASE_URL = nextPageUrl ?? ""
+      self.urlString = nextPageUrl ?? ""
+    } else {
+      self.urlString = GameServiceEndPoint.BASE_URL
+    }
+    if let urlString = urlString {
+      gameService.fetchAllDatas(url: urlString) { gameModels,nextPage in
+        if let gameModels = gameModels {
+          self.games = gameModels
+          self.gameOutPut?.saveDatas(values: self.games)
+        } else {
+          print("Failed to fetch game models.")
+        }
+        if let nextPage = nextPage {
+          self.isNextPageExist = true
+          self.nextPageUrl = nextPage
+        }
+      }
+    }
+  }
+  
+  func searchItems(search: String?) {
+    if isNextPageExist {
+      self.urlString = nextPageUrl ?? ""
+    } else {
+      self.urlString = GameServiceEndPoint.BASE_URL
     }
     if let search = search {
       gameService.fetchAllDatas(url: GameServiceEndPoint.searchPath(search: search)) { gameModels,nextPage in
-          if let gameModels = gameModels {
-            self.games = gameModels
-            self.gameOutPut?.saveDatas(values: self.games)
-          } else {
-              print("Failed to fetch game models.")
-          }
-        if let nextPage = nextPage {
-          self.isNextPageExist = true
-          self.nextPageUrl = nextPage
+        if let gameModels = gameModels {
+          self.games = gameModels
+          self.gameOutPut?.saveDatas(values: self.games)
+        } else {
+          print("Failed to fetch game models.")
         }
-      }
-    } else {
-      gameService.fetchAllDatas(url: GameServiceEndPoint.BASE_URL) { gameModels,nextPage in
-          if let gameModels = gameModels {
-            self.games = gameModels
-            self.gameOutPut?.saveDatas(values: self.games)
-          } else {
-              print("Failed to fetch game models.")
-          }
         if let nextPage = nextPage {
           self.isNextPageExist = true
           self.nextPageUrl = nextPage
@@ -65,4 +76,5 @@ final class GameHomeViewModel: IGameHomeViewModel {
       }
     }
   }
+  
 }

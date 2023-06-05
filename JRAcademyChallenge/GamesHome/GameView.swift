@@ -85,7 +85,12 @@ class GameView: UITableViewCell {
         gameGenre.text = "N/A"
       }
     }
-    metaCriticScoreLabel.text = model.metacritic?.description
+    if let metacritic = model.metacritic {
+      metaCriticScoreLabel.text = model.metacritic?.description
+    } else {
+      metaCriticScoreLabel.text = "N/A"
+    }
+   
     if let urlString = model.backgroundImage {
       let url = URL(string: urlString)
       gameImage.kf.setImage(with: url)

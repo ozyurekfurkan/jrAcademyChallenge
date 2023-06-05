@@ -34,7 +34,7 @@ class GameHomeViewController: UIViewController {
   func fetchGameData() {
       configure()
       viewModel.setDelegate(output: self)
-      viewModel.fetchItems(search: searchString)
+      viewModel.fetchItems()
 
   }
   
@@ -92,7 +92,7 @@ extension GameHomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.row + 1 == results.count {
-          viewModel.fetchItems(search: nil)
+          viewModel.fetchItems()
         }
     }
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
@@ -104,7 +104,7 @@ extension GameHomeViewController: UISearchBarDelegate {
   func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
     if let searchText = searchBar.text?.replacingOccurrences(of: " ", with: "%20"), searchText.count >= 3 {
         results = []
-        viewModel.fetchItems(search: searchText)
+        viewModel.searchItems(search: searchText)
         tableView.reloadData()
     }
   }
