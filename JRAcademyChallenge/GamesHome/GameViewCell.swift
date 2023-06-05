@@ -8,15 +8,14 @@
 import Foundation
 import SnapKit
 import Carbon
+import Kingfisher
 
 class GameViewCell: UIView,Component {
-  
   func render(in content: GameViewCell) {
-    
   }
   
   func referenceSize(in bounds: CGRect) -> CGSize? {
-    return CGSize(width: bounds.width, height: 134) // Replace 64 with the desired height value
+    return CGSize(width: bounds.width, height: 134)
   }
   
   func renderContent() -> GameViewCell {

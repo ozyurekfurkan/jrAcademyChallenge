@@ -43,7 +43,7 @@ final class GameHomeViewModel: IGameHomeViewModel {
       gameService.fetchAllDatas(url: urlString) { gameModels,nextPage in
         if let gameModels = gameModels {
           self.games = gameModels
-          self.gameOutPut?.saveDatas(values: self.games)
+          self.gameOutPut?.saveDataAndRender(values: self.games)
         } else {
           print("Failed to fetch game models.")
         }
@@ -65,7 +65,7 @@ final class GameHomeViewModel: IGameHomeViewModel {
       gameService.fetchAllDatas(url: GameServiceEndPoint.searchPath(search: search)) { gameModels,nextPage in
         if let gameModels = gameModels {
           self.games = gameModels
-          self.gameOutPut?.saveDatas(values: self.games)
+          self.gameOutPut?.saveDataAndRender(values: self.games)
         } else {
           print("Failed to fetch game models.")
         }

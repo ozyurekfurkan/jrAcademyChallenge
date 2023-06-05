@@ -9,11 +9,10 @@ import Foundation
 import UIKit
 import SnapKit
 import Alamofire
-import Kingfisher
 import Carbon
 
 protocol GamesOutPut {
-  func saveDatas(values: [GameModel])
+  func saveDataAndRender(values: [GameModel])
 }
 
 class GameHomeViewController: UIViewController {
@@ -88,7 +87,7 @@ class GameHomeViewController: UIViewController {
 }
 
 extension GameHomeViewController: GamesOutPut {
-    func saveDatas(values: [GameModel]) {
+    func saveDataAndRender(values: [GameModel]) {
         results.append(contentsOf: values)
         render()
     }
@@ -120,7 +119,6 @@ extension GameHomeViewController: UISearchBarDelegate {
     if let searchText = searchBar.text?.replacingOccurrences(of: " ", with: "%20"), searchText.count >= 3 {
         results = []
         viewModel.searchItems(search: searchText)
-        render()
     }
   }
   @objc private func handleTap() {
