@@ -10,6 +10,7 @@ import UIKit
 import SnapKit
 import Alamofire
 import Kingfisher
+import Carbon
 
 protocol GamesOutPut {
   func saveDatas(values: [GameModel])
@@ -20,7 +21,7 @@ class GameHomeViewController: UIViewController {
   private let tableView: UITableView = UITableView()
   private let searchBar = UISearchBar()
   var searchString: String = ""
-  private lazy var results: [GameModel] = []
+  private var results: [GameModel] = []
   var isLoadingNextPage = false
   
   var viewModel: GameHomeViewModel = GameHomeViewModel()
@@ -28,6 +29,7 @@ class GameHomeViewController: UIViewController {
   override func viewDidLoad() {
     let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap))
     view.addGestureRecognizer(tapGesture)
+    renderer.target = tableView
     fetchGameData()
   }
   
@@ -38,16 +40,29 @@ class GameHomeViewController: UIViewController {
 
   }
   
+  private let renderer = Renderer(
+      adapter: UITableViewAdapter(),
+      updater: UITableViewUpdater()
+  )
+  
+  func render() {
+    var sections: [Section] = []
+    var cellNode: [CellNode] = []
+    
+    for game in results {
+      cellNode.append(CellNode(id: "gameViewCell", GameViewCell(game: game)))
+    }
+    
+    let gameSection = Section(id: "gameSection", cells: cellNode)
+    
+    sections.append(gameSection)
+    renderer.render(sections)
+  }
+  
   func configure() {
-    tableView.register(GameView.self, forCellReuseIdentifier: GameView.identifier)
-    tableView.dataSource = self
-    tableView.delegate = self
     searchBar.delegate = self
-    tableView.rowHeight = 136
-
     self.view.addSubview(tableView)
     self.view.addSubview(searchBar)
-    
     configureSearchBar()
     configureTableView()
   }
@@ -75,37 +90,37 @@ class GameHomeViewController: UIViewController {
 extension GameHomeViewController: GamesOutPut {
     func saveDatas(values: [GameModel]) {
         results.append(contentsOf: values)
-        tableView.reloadData()
+        render()
     }
 }
 
-extension GameHomeViewController: UITableViewDelegate, UITableViewDataSource {
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-      return results.count
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: GameView.identifier, for: indexPath) as! GameView
-        cell.configureCell(model: results[indexPath.row])
-        return cell
-    }
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if indexPath.row + 1 == results.count {
-          viewModel.fetchItems()
-        }
-    }
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        view.endEditing(true)
-    }
-}
+//extension GameHomeViewController: UITableViewDelegate, UITableViewDataSource {
+//
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//      return results.count
+//    }
+//
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let cell = tableView.dequeueReusableCell(withIdentifier: GameViewCell.identifier, for: indexPath) as! GameViewCell
+//        cell.configureCell(model: results[indexPath.row])
+//        return cell
+//    }
+//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//        if indexPath.row + 1 == results.count {
+//          viewModel.fetchItems()
+//        }
+//    }
+//    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+//        view.endEditing(true)
+//    }
+//}
 
 extension GameHomeViewController: UISearchBarDelegate {
   func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
     if let searchText = searchBar.text?.replacingOccurrences(of: " ", with: "%20"), searchText.count >= 3 {
         results = []
         viewModel.searchItems(search: searchText)
-        tableView.reloadData()
+        render()
     }
   }
   @objc private func handleTap() {

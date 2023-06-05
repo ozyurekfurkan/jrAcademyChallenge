@@ -7,9 +7,29 @@
 
 import Foundation
 import SnapKit
+import Carbon
 
-class GameView: UITableViewCell {
-  static let identifier: String = "gameViewCell"
+class GameViewCell: UIView,Component {
+  
+  func render(in content: GameViewCell) {
+    
+  }
+  
+  func referenceSize(in bounds: CGRect) -> CGSize? {
+    return CGSize(width: bounds.width, height: 134) // Replace 64 with the desired height value
+  }
+  
+  func renderContent() -> GameViewCell {
+    return self
+  }
+  
+
+  init(game: GameModel) {
+    super.init(frame: .zero)
+    configure()
+    configureCell(model: game)
+  }
+
   var dataDescription = "metacritic: "
   var gameTitle: UILabel = UILabel()
   var metaCriticLabel: UILabel = UILabel()
@@ -17,18 +37,13 @@ class GameView: UITableViewCell {
   var gameGenre: UILabel = UILabel()
   var gameImage: UIImageView = UIImageView()
   
-  override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-    super.init(style: style, reuseIdentifier: reuseIdentifier)
-    self.configure()
-  }
-  
   func configure() {
     
-    self.contentView.addSubview(gameTitle)
-    self.contentView.addSubview(metaCriticLabel)
-    self.contentView.addSubview(metaCriticScoreLabel)
-    self.contentView.addSubview(gameGenre)
-    self.contentView.addSubview(gameImage)
+    self.addSubview(gameTitle)
+    self.addSubview(metaCriticLabel)
+    self.addSubview(metaCriticScoreLabel)
+    self.addSubview(gameGenre)
+    self.addSubview(gameImage)
     
     gameTitle.snp.makeConstraints { make in
       make.top.equalToSuperview().offset(16)
