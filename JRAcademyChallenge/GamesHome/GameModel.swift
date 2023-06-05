@@ -14,7 +14,7 @@ struct WelcomePageResponse: Codable {
 
 struct GameModel: Codable {
   let id: Int?
-  let name: String?
+  let name: String
   let backgroundImage: String?
   let metacritic: Int?
   let genres: [Genre]?

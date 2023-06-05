@@ -45,17 +45,15 @@ class GameHomeViewController: UIViewController {
   )
   
   func render() {
-    var sections: [Section] = []
+    
     var cellNode: [CellNode] = []
     
     for game in results {
-      cellNode.append(CellNode(id: "gameViewCell", GameViewCell(game: game)))
+      cellNode.append(CellNode(GameViewCellComponent(game: game)))
     }
     
     let gameSection = Section(id: "gameSection", cells: cellNode)
-    
-    sections.append(gameSection)
-    renderer.render(sections)
+    renderer.render(gameSection)
   }
   
   func configure() {
@@ -92,27 +90,6 @@ extension GameHomeViewController: GamesOutPut {
         render()
     }
 }
-
-//extension GameHomeViewController: UITableViewDelegate, UITableViewDataSource {
-//
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//      return results.count
-//    }
-//
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: GameViewCell.identifier, for: indexPath) as! GameViewCell
-//        cell.configureCell(model: results[indexPath.row])
-//        return cell
-//    }
-//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-//        if indexPath.row + 1 == results.count {
-//          viewModel.fetchItems()
-//        }
-//    }
-//    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-//        view.endEditing(true)
-//    }
-//}
 
 extension GameHomeViewController: UISearchBarDelegate {
   func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {

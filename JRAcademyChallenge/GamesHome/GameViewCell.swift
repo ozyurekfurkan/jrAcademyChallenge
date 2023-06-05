@@ -10,8 +10,39 @@ import SnapKit
 import Carbon
 import Kingfisher
 
-class GameViewCell: UIView,Component {
+struct GameViewCellComponent: IdentifiableComponent {
+  
+  func shouldContentUpdate(with next: GameViewCellComponent) -> Bool {
+    return true
+  }
+  
+  var game: GameModel
+  var id: String {
+    game.name
+  }
   func render(in content: GameViewCell) {
+    content.gameTitle.text = game.name
+    content.metaCriticLabel.text = "metacritic: "
+    if let genres = game.genres {
+      let genreNames = genres.compactMap { $0.name }
+      if !genreNames.isEmpty {
+        let joinedGenreNames = genreNames.joined(separator: ", ")
+        content.gameGenre.text = joinedGenreNames
+      } else {
+        content.gameGenre.text = "N/A"
+      }
+    }
+    if let metacritic = game.metacritic {
+      content.metaCriticScoreLabel.text = game.metacritic?.description
+    } else {
+      content.metaCriticScoreLabel.text = "N/A"
+    }
+   
+    if let urlString = game.backgroundImage {
+      let url = URL(string: urlString)
+      content.gameImage.kf.setImage(with: url)
+    }
+    
   }
   
   func referenceSize(in bounds: CGRect) -> CGSize? {
@@ -19,17 +50,22 @@ class GameViewCell: UIView,Component {
   }
   
   func renderContent() -> GameViewCell {
-    return self
+    return GameViewCell()
   }
   
+}
 
-  init(game: GameModel) {
-    super.init(frame: .zero)
+class GameViewCell: UIView {
+  override init(frame: CGRect) {
+    super.init(frame: frame)
     configure()
-    configureCell(model: game)
   }
-
-  var dataDescription = "metacritic: "
+  
+  required init?(coder: NSCoder) {
+    super.init(coder: coder)
+    
+    fatalError("init(coder:) has not been implemented")
+  }
   var gameTitle: UILabel = UILabel()
   var metaCriticLabel: UILabel = UILabel()
   var metaCriticScoreLabel: UILabel = UILabel()
@@ -88,32 +124,6 @@ class GameViewCell: UIView,Component {
   }
   
   func configureCell(model: GameModel) {
-    gameTitle.text = model.name
-    metaCriticLabel.text = dataDescription
-    if let genres = model.genres {
-      let genreNames = genres.compactMap { $0.name }
-      if !genreNames.isEmpty {
-        let joinedGenreNames = genreNames.joined(separator: ", ")
-        gameGenre.text = joinedGenreNames
-      } else {
-        gameGenre.text = "N/A"
-      }
-    }
-    if let metacritic = model.metacritic {
-      metaCriticScoreLabel.text = model.metacritic?.description
-    } else {
-      metaCriticScoreLabel.text = "N/A"
-    }
-   
-    if let urlString = model.backgroundImage {
-      let url = URL(string: urlString)
-      gameImage.kf.setImage(with: url)
-    }
-  }
-  
-  required init?(coder: NSCoder) {
-    super.init(coder: coder)
-    
-    fatalError("init(coder:) has not been implemented")
+
   }
 }
