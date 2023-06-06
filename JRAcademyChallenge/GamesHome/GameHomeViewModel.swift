@@ -15,6 +15,7 @@ protocol IGameHomeViewModel {
   var gameOutPut: GamesOutPut? { get }
   func setDelegate(output: GamesOutPut)
 }
+
 final class GameHomeViewModel: IGameHomeViewModel {
   
   var gameOutPut: GamesOutPut?

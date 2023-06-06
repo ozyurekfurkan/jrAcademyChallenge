@@ -3,15 +3,15 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "closure #1 in GameHomeViewModel.searchItems(search:):GameHomeViewModel.swift">
-      </ContextState>
-      <ContextState
          contextName = "GameViewCell.render(in:):GameViewCell.swift">
          <PersistentStrings>
             <PersistentString
                value = "content.gameTitle">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in GameHomeViewModel.searchItems(search:):GameHomeViewModel.swift">
       </ContextState>
       <ContextState
          contextName = "CustomTableViewAdapter.tableView(_:willDisplay:forRowAt:):GameHomeViewController.swift">
@@ -53,6 +53,17 @@
             </PersistentString>
             <PersistentString
                value = "metaCriticLabel.text">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "GameViewCell.handleTap():GameViewCell.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.gameID">
+            </PersistentString>
+            <PersistentString
+               value = "navigationController">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

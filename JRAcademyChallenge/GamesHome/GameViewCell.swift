@@ -33,7 +33,7 @@ struct GameViewCellComponent: IdentifiableComponent {
       }
     }
     if let metacritic = game.metacritic {
-      content.metaCriticScoreLabel.text = game.metacritic?.description
+      content.metaCriticScoreLabel.text = metacritic.description
     } else {
       content.metaCriticScoreLabel.text = "N/A"
     }
@@ -48,6 +48,7 @@ struct GameViewCellComponent: IdentifiableComponent {
       ]
       content.gameImage.kf.setImage(with: url, options: imageLoadingOptions)
     }
+    content.gameID = game.id ?? 0
     
   }
   
@@ -58,45 +59,37 @@ struct GameViewCellComponent: IdentifiableComponent {
   func renderContent() -> GameViewCell {
     return GameViewCell()
   }
-  
 }
 
-struct EmptyViewComponent: IdentifiableComponent {
-  
-  var id: String = "empty"
-  
-  func shouldContentUpdate(with next: EmptyViewComponent) -> Bool {
-    return false
-  }
-  
-  func render(in content: Empty) {
-  }
-  
-  func referenceSize(in bounds: CGRect) -> CGSize? {
-    return CGSize(width: bounds.width, height: 41)
-  }
-  
-  func renderContent() -> Empty {
-    return Empty()
-  }
-}
-
-class GameViewCell: UIView {
+final class GameViewCell: UIView {
   override init(frame: CGRect) {
     super.init(frame: frame)
+    self.gameID = 0
+    self.viewController = GameHomeViewController()
+    let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+    self.addGestureRecognizer(tapGesture)
     configure()
   }
   
   required init?(coder: NSCoder) {
     super.init(coder: coder)
-    
     fatalError("init(coder:) has not been implemented")
   }
+  var gameID: Int?
+  var viewController: GameHomeViewController?
   var gameTitle: UILabel = UILabel()
   var metaCriticLabel: UILabel = UILabel()
   var metaCriticScoreLabel: UILabel = UILabel()
   var gameGenre: UILabel = UILabel()
   var gameImage: UIImageView = UIImageView()
+  
+  @objc private func handleTap() {
+    guard let viewController = viewController else {
+       return
+     }
+    viewController.gameID = gameID
+    viewController.navigateToDetail()
+   }
   
   func configure() {
     
@@ -105,7 +98,6 @@ class GameViewCell: UIView {
     self.addSubview(metaCriticScoreLabel)
     self.addSubview(gameGenre)
     self.addSubview(gameImage)
-    
     gameTitle.snp.makeConstraints { make in
       make.top.equalToSuperview().offset(16)
       make.right.equalToSuperview().offset(-16)
@@ -145,31 +137,5 @@ class GameViewCell: UIView {
     gameGenre.textColor = .lightGray
     metaCriticScoreLabel.textColor = .red
     backgroundColor = .white
-  }
-}
-class Empty: UIView {
-  var emptyLabel: UILabel = UILabel()
-  
-  override init(frame: CGRect) {
-    super.init(frame: frame)
-    configure()
-  }
-  
-  required init?(coder: NSCoder) {
-    super.init(coder: coder)
-    
-    fatalError("init(coder:) has not been implemented")
-  }
-  
-  func configure() {
-    self.addSubview(emptyLabel)
-    
-    emptyLabel.snp.makeConstraints { make in
-      make.top.equalToSuperview().offset(36)
-      make.right.left.equalToSuperview().offset(70)
-    }
-    
-    emptyLabel.text = "No game has been searched."
-    emptyLabel.font = UIFont.boldSystemFont(ofSize: 18)
   }
 }

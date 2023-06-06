@@ -12,6 +12,7 @@ enum GameServiceEndPoint: String {
   
     static var BASE_URL = "https://api.rawg.io/api/games?key=3be8af6ebf124ffe81d90f514e59856c"
     case PATH = "&search={search}"
+    static var DETAIL_URL = "https://api.rawg.io/api/games{id}?key=3be8af6ebf124ffe81d90f514e59856c"
 
     static func path() -> String {
         return BASE_URL
@@ -21,6 +22,14 @@ enum GameServiceEndPoint: String {
       var url = "\(BASE_URL)\(PATH.rawValue)"
       if let search = search {
         url = url.replacingOccurrences(of: "{search}", with: search)
+      }
+      return url
+    }
+  
+    static func detailPath(id: String?) -> String {
+      var url = "\(DETAIL_URL)"
+      if let id = id {
+        url = url.replacingOccurrences(of: "{id}", with: id)
       }
       return url
     }

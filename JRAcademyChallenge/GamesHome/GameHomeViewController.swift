@@ -20,14 +20,12 @@ class GameHomeViewController: UIViewController {
   private let tableView: UITableView = UITableView()
   private let searchBar = UISearchBar()
   var searchString: String = ""
+  var gameID: Int?
   var results: [GameModel] = []
   var isLoadingNextPage = false
-  
   var viewModel: GameHomeViewModel = GameHomeViewModel()
   
   override func viewDidLoad() {
-    let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap))
-    view.addGestureRecognizer(tapGesture)
     renderer.target = tableView
     fetchGameData()
   }
@@ -72,6 +70,13 @@ class GameHomeViewController: UIViewController {
     self.view.addSubview(searchBar)
     configureSearchBar()
     configureTableView()
+  }
+  
+  func navigateToDetail() {
+    let vc = DetailViewController()
+    if let navigationController = UIApplication.shared.keyWindow?.rootViewController as? UINavigationController {
+      navigationController.pushViewController(vc,animated: true)
+    }
   }
   
   func configureSearchBar() {
@@ -136,9 +141,6 @@ extension GameHomeViewController: UISearchBarDelegate {
     }
     searchBar.resignFirstResponder()
   }
-  @objc private func handleTap() {
-       view.endEditing(true)
-   }
 }
 
 class CustomTableViewAdapter: UITableViewAdapter {
