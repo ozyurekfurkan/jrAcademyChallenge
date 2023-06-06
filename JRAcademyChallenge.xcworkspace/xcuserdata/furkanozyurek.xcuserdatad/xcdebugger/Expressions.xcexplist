@@ -3,34 +3,21 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "closure #1 in GameHomeViewModel.fetchItems():GameHomeViewModel.swift">
+         contextName = "closure #1 in GameHomeViewModel.searchItems(search:):GameHomeViewModel.swift">
+      </ContextState>
+      <ContextState
+         contextName = "GameViewCell.render(in:):GameViewCell.swift">
          <PersistentStrings>
             <PersistentString
-               value = "self?.games">
+               value = "content.gameTitle">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "closure #1 in GameHomeViewController.fetchGameData():GameHomeViewController.swift">
+         contextName = "CustomTableViewAdapter.tableView(_:willDisplay:forRowAt:):GameHomeViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = " self.result">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "GameHomeViewController.saveDatas(values:):GameHomeViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "results">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "GameViewCell.configureCell(model:):GameViewCell.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "model.name">
+               value = "GameHomeViewController().results.count">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -43,10 +30,37 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "GameHomeViewController.render():GameHomeViewController.swift">
+         contextName = "GameHomeViewController.saveDataAndRender(values:):GameHomeViewController.swift">
          <PersistentStrings>
             <PersistentString
                value = "results">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "GameHomeViewController.searchBar(_:textDidChange:):GameHomeViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "searchText.isEmpty">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "GameViewCell.configureCell(model:):GameViewCell.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "model.name">
+            </PersistentString>
+            <PersistentString
+               value = "metaCriticLabel.text">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in GameHomeViewController.fetchGameData():GameHomeViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = " self.result">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -55,6 +69,63 @@
          <PersistentStrings>
             <PersistentString
                value = "self.results">
+            </PersistentString>
+            <PersistentString
+               value = "game.name">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "GameHomeViewController.render():GameHomeViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "results">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "GameHomeViewController.saveDatas(values:):GameHomeViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "results">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "GameHomeViewModel.fetchItems():GameHomeViewModel.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "urlString">
+            </PersistentString>
+            <PersistentString
+               value = "searchRemoved">
+            </PersistentString>
+            <PersistentString
+               value = "isNextPageExist">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in GameHomeViewModel.fetchItems():GameHomeViewModel.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self?.games">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "GameHomeViewController.searchBarSearchButtonClicked(_:):GameHomeViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "results">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "CustomTableViewdapter.tableView(_:willDisplay:forRowAt:):GameHomeViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "indexPath.row">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

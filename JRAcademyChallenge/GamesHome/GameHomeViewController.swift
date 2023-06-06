@@ -20,7 +20,7 @@ class GameHomeViewController: UIViewController {
   private let tableView: UITableView = UITableView()
   private let searchBar = UISearchBar()
   var searchString: String = ""
-  private var results: [GameModel] = []
+  var results: [GameModel] = []
   var isLoadingNextPage = false
   
   var viewModel: GameHomeViewModel = GameHomeViewModel()
@@ -40,7 +40,7 @@ class GameHomeViewController: UIViewController {
   }
   
   private let renderer = Renderer(
-      adapter: UITableViewAdapter(),
+      adapter: CustomTableViewAdapter(),
       updater: UITableViewUpdater()
   )
   
@@ -54,6 +54,16 @@ class GameHomeViewController: UIViewController {
     
     let gameSection = Section(id: "gameSection", cells: cellNode)
     renderer.render(gameSection)
+  }
+  
+  func renderEmptyView() {
+    
+    var cellNode: [CellNode] = []
+    
+    cellNode.append(CellNode(EmptyViewComponent()))
+    
+    let emptySection = Section(id: "emptySection", cells: cellNode)
+    renderer.render(emptySection)
   }
   
   func configure() {
@@ -80,7 +90,7 @@ class GameHomeViewController: UIViewController {
           make.right.equalTo(view.snp.right)
     }
     tableView.separatorStyle = .none
-    tableView.tableFooterView = LoadingFooterView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 50))
+//    tableView.tableFooterView = LoadingFooterView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 50))
   }
 }
 
@@ -92,13 +102,49 @@ extension GameHomeViewController: GamesOutPut {
 }
 
 extension GameHomeViewController: UISearchBarDelegate {
+  
   func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
     if let searchText = searchBar.text?.replacingOccurrences(of: " ", with: "%20"), searchText.count >= 3 {
         results = []
         viewModel.searchItems(search: searchText)
     }
+    searchBar.resignFirstResponder()
+  }
+  
+  func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+     if searchText.isEmpty {
+       searchBar.resignFirstResponder()
+       results = []
+       viewModel.searchRemoved = true
+       viewModel.fetchItems()
+     } else if let searchText = searchBar.text?.replacingOccurrences(of: " ", with: "%20"), searchText.count >= 3 {
+       results = []
+       viewModel.searchItems(search: searchText)
+     } else {
+       renderEmptyView()
+     }
+  }
+
+  func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+      renderEmptyView()
+  }
+  func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+    if searchBar.text == "" {
+      viewModel.searchRemoved = true
+      results = []
+      viewModel.fetchItems()
+    }
+    searchBar.resignFirstResponder()
   }
   @objc private func handleTap() {
-       view.endEditing(true) // Close the keyboard
+       view.endEditing(true)
    }
+}
+
+class CustomTableViewAdapter: UITableViewAdapter {
+  override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    if indexPath.row + 1 == 20 {
+         print("test")
+      }
+  }
 }

@@ -19,8 +19,10 @@ final class GameHomeViewModel: IGameHomeViewModel {
   
   var gameOutPut: GamesOutPut?
   var isNextPageExist: Bool = false
+  var searchRemoved: Bool = false
   var nextPageUrl: String?
   var urlString: String?
+  
   
   func setDelegate(output: GamesOutPut) {
     gameOutPut = output
@@ -34,7 +36,10 @@ final class GameHomeViewModel: IGameHomeViewModel {
   }
   
   func fetchItems() {
-    if isNextPageExist {
+    if searchRemoved {
+      self.urlString = GameServiceEndPoint.BASE_URL
+    }
+    else if isNextPageExist {
       self.urlString = nextPageUrl ?? ""
     } else {
       self.urlString = GameServiceEndPoint.BASE_URL
