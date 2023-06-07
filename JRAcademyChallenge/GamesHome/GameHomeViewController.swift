@@ -74,6 +74,7 @@ class GameHomeViewController: UIViewController {
   
   func navigateToDetail() {
     let vc = DetailViewController()
+    vc.gameID = self.gameID
     if let navigationController = UIApplication.shared.keyWindow?.rootViewController as? UINavigationController {
       navigationController.pushViewController(vc,animated: true)
     }
@@ -118,7 +119,6 @@ extension GameHomeViewController: UISearchBarDelegate {
   
   func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
      if searchText.isEmpty {
-       searchBar.resignFirstResponder()
        results = []
        viewModel.searchRemoved = true
        viewModel.fetchItems()
@@ -149,4 +149,5 @@ class CustomTableViewAdapter: UITableViewAdapter {
          print("test")
       }
   }
+  
 }

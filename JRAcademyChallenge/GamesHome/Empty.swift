@@ -7,6 +7,7 @@
 
 import UIKit
 import Carbon
+import SnapKit
 
 struct EmptyViewComponent: IdentifiableComponent {
   

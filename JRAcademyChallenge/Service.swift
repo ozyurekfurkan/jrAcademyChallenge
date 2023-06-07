@@ -12,7 +12,7 @@ enum GameServiceEndPoint: String {
   
     static var BASE_URL = "https://api.rawg.io/api/games?key=3be8af6ebf124ffe81d90f514e59856c"
     case PATH = "&search={search}"
-    static var DETAIL_URL = "https://api.rawg.io/api/games{id}?key=3be8af6ebf124ffe81d90f514e59856c"
+    static var DETAIL_URL = "https://api.rawg.io/api/games/{id}?key=3be8af6ebf124ffe81d90f514e59856c"
 
     static func path() -> String {
         return BASE_URL
@@ -37,6 +37,7 @@ enum GameServiceEndPoint: String {
 
 protocol IGameService {
     func fetchAllDatas(url:String,response: @escaping ([GameModel]?,String?) -> Void)
+    func fetchGameDetail(url:String,response: @escaping (GameDetailModel?) -> Void)
 }
 
 
@@ -50,6 +51,17 @@ struct GameService: IGameService {
             }
             print(data.results)
             response(data.results,data.next)
+        }
+    }
+  
+  func fetchGameDetail(url:String,response: @escaping (GameDetailModel?) -> Void) {
+          AF.request(url).responseDecodable(of: GameDetailModel.self) { (model) in
+            guard let data = model.value else {
+                response(nil)
+                return
+            }
+            print(data)
+            response(data)
         }
     }
 

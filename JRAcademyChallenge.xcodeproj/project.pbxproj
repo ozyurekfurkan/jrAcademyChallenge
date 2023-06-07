@@ -23,6 +23,10 @@
 		EBBC5EE82A260D80009E6A60 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBBC5EE72A260D80009E6A60 /* SceneDelegate.swift */; };
 		EBBC5EEF2A260D81009E6A60 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EBBC5EEE2A260D81009E6A60 /* Assets.xcassets */; };
 		EBBC5EF22A260D81009E6A60 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EBBC5EF02A260D81009E6A60 /* LaunchScreen.storyboard */; };
+		EBDFDD772A30B3D4008F5D46 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBDFDD762A30B3D4008F5D46 /* DetailViewModel.swift */; };
+		EBDFDD792A30B7E6008F5D46 /* GameDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBDFDD782A30B7E6008F5D46 /* GameDetailModel.swift */; };
+		EBDFDD7B2A30BBD5008F5D46 /* GameDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBDFDD7A2A30BBD5008F5D46 /* GameDetailView.swift */; };
+		EBDFDD7E2A30FD47008F5D46 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EBDFDD7C2A30FD47008F5D46 /* Model.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +50,10 @@
 		EBBC5EEE2A260D81009E6A60 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EBBC5EF12A260D81009E6A60 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EBBC5EF32A260D81009E6A60 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EBDFDD762A30B3D4008F5D46 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
+		EBDFDD782A30B7E6008F5D46 /* GameDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDetailModel.swift; sourceTree = "<group>"; };
+		EBDFDD7A2A30BBD5008F5D46 /* GameDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDetailView.swift; sourceTree = "<group>"; };
+		EBDFDD7D2A30FD47008F5D46 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +109,9 @@
 			isa = PBXGroup;
 			children = (
 				EB4A80CE2A2F7A1D005A08D3 /* DetailViewController.swift */,
+				EBDFDD762A30B3D4008F5D46 /* DetailViewModel.swift */,
+				EBDFDD782A30B7E6008F5D46 /* GameDetailModel.swift */,
+				EBDFDD7A2A30BBD5008F5D46 /* GameDetailView.swift */,
 			);
 			path = DetailPage;
 			sourceTree = "<group>";
@@ -108,6 +119,7 @@
 		EBBC5ED92A260D80009E6A60 = {
 			isa = PBXGroup;
 			children = (
+				EBDFDD7C2A30FD47008F5D46 /* Model.xcdatamodeld */,
 				EBBC5EE42A260D80009E6A60 /* JRAcademyChallenge */,
 				EBBC5EE32A260D80009E6A60 /* Products */,
 				84AC8363BE38C2800821CAD4 /* Pods */,
@@ -263,12 +275,16 @@
 				EB4A80CF2A2F7A1D005A08D3 /* DetailViewController.swift in Sources */,
 				EB1AA7D12A2CC91D00817C15 /* ViewController.swift in Sources */,
 				EB1AA7D92A2CDDBD00817C15 /* LoadingFooterView.swift in Sources */,
+				EBDFDD7B2A30BBD5008F5D46 /* GameDetailView.swift in Sources */,
+				EBDFDD7E2A30FD47008F5D46 /* Model.xcdatamodeld in Sources */,
 				EB1AA7CF2A2CC83800817C15 /* TabBar.swift in Sources */,
 				EBBC5EE62A260D80009E6A60 /* AppDelegate.swift in Sources */,
+				EBDFDD772A30B3D4008F5D46 /* DetailViewModel.swift in Sources */,
 				EB177A622A278D390025E100 /* GameViewCell.swift in Sources */,
 				EBBC5EE82A260D80009E6A60 /* SceneDelegate.swift in Sources */,
 				EB1AA7D72A2CCEA800817C15 /* FavoritesViewController.swift in Sources */,
 				EB177A662A2887630025E100 /* GameModel.swift in Sources */,
+				EBDFDD792A30B7E6008F5D46 /* GameDetailModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -480,6 +496,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		EBDFDD7C2A30FD47008F5D46 /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				EBDFDD7D2A30FD47008F5D46 /* Model.xcdatamodel */,
+			);
+			currentVersion = EBDFDD7D2A30FD47008F5D46 /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = EBBC5EDA2A260D80009E6A60 /* Project object */;
 }
