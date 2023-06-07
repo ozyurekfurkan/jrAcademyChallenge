@@ -14,10 +14,10 @@ struct WelcomePageResponse: Codable {
 
 struct GameModel: Codable {
   let id: Int?
-  let name: String
-  let backgroundImage: String?
-  let metacritic: Int?
-  let genres: [Genre]?
+  var name: String
+  var backgroundImage: String?
+  var metacritic: Int?
+  var genres: [Genre]?
   
   enum CodingKeys: String, CodingKey {
     case id, name
@@ -29,7 +29,7 @@ struct GameModel: Codable {
 
 // MARK: - Genre
 struct Genre: Codable {
-  let name: String?
+  var name: String?
   enum CodingKeys: String, CodingKey {
     case name
   }
