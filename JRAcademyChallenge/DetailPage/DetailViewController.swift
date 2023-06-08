@@ -37,7 +37,6 @@ class DetailViewController: UIViewController {
     }
     let managedContext = appDelegate.persistentContainer.viewContext
     guard let entity = NSEntityDescription.entity(forEntityName: "Favorite", in: managedContext) else {
-      print("Hata: Favori varlığı bulunamadı.")
       return
     }
     var combinedGenres: String?
@@ -46,13 +45,14 @@ class DetailViewController: UIViewController {
       combinedGenres = genreNames.joined(separator: ", ")
     }
     let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Favorite")
-    fetchRequest.predicate = NSPredicate(format: "name == %@ AND image == %@ AND metacritic == %d AND genres == %@", viewModel.game?.name ?? "", viewModel.game?.backgroundImage ?? "", viewModel.game?.metacritic ?? 0, combinedGenres ?? "")
+    fetchRequest.predicate = NSPredicate(format: "id == %d AND name == %@ AND image == %@ AND metacritic == %d AND genres == %@",viewModel.game?.id ?? 0, viewModel.game?.name ?? "", viewModel.game?.backgroundImage ?? "", viewModel.game?.metacritic ?? 0, combinedGenres ?? "")
     do {
       let results = try managedContext.fetch(fetchRequest)
     } catch let error as NSError {
       print("Favori arama hatası: \(error), \(error.userInfo)")
     }
     let favorite = NSManagedObject(entity: entity, insertInto: managedContext)
+    favorite.setValue(viewModel.game?.id, forKey: "id")
     favorite.setValue(viewModel.game?.name, forKey: "name")
     favorite.setValue(viewModel.game?.backgroundImage, forKey: "image")
     favorite.setValue(viewModel.game?.metacritic, forKey: "metacritic")

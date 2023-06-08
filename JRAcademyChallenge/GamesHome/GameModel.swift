@@ -13,7 +13,7 @@ struct WelcomePageResponse: Codable {
 }
 
 struct GameModel: Codable {
-  let id: Int?
+  var id: Int?
   var name: String
   var backgroundImage: String?
   var metacritic: Int?

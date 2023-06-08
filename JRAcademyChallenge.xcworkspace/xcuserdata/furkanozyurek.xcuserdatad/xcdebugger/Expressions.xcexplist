@@ -27,6 +27,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "GameHomeViewModel.handleFetchItemsNotification():GameHomeViewModel.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "games">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "closure #1 in GameHomeViewModel.searchItems(search:):GameHomeViewModel.swift">
       </ContextState>
       <ContextState
@@ -113,6 +121,9 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "closure #1 in DetailViewModel.fetchDetail():DetailViewModel.swift">
+      </ContextState>
+      <ContextState
          contextName = "closure #1 in GameHomeViewController.render():GameHomeViewController.swift">
          <PersistentStrings>
             <PersistentString
@@ -122,9 +133,6 @@
                value = "game.name">
             </PersistentString>
          </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in DetailViewModel.fetchDetail():DetailViewModel.swift">
       </ContextState>
       <ContextState
          contextName = "closure #1 in GameHomeViewModel.fetchItems():GameHomeViewModel.swift">
@@ -165,13 +173,16 @@
          contextName = "GameHomeViewModel.fetchItems():GameHomeViewModel.swift">
          <PersistentStrings>
             <PersistentString
-               value = "urlString">
+               value = "shouldFetchItems">
             </PersistentString>
             <PersistentString
                value = "searchRemoved">
             </PersistentString>
             <PersistentString
                value = "isNextPageExist">
+            </PersistentString>
+            <PersistentString
+               value = "urlString">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

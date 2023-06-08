@@ -12,7 +12,7 @@ import Alamofire
 import Carbon
 
 protocol GamesOutPut {
-  func saveDataAndRender(values: [GameModel])
+  func saveDataAndRender()
 }
 
 class GameHomeViewController: UIViewController {
@@ -21,9 +21,14 @@ class GameHomeViewController: UIViewController {
   private let searchBar = UISearchBar()
   var searchString: String = ""
   var gameID: Int?
-  var results: [GameModel] = []
   var isLoadingNextPage = false
   var viewModel: GameHomeViewModel = GameHomeViewModel()
+  
+  
+  private let renderer = Renderer(
+      adapter: CustomTableViewAdapter(),
+      updater: UITableViewUpdater()
+  )
   
   override func viewDidLoad() {
     renderer.target = tableView
@@ -34,19 +39,13 @@ class GameHomeViewController: UIViewController {
       configure()
       viewModel.setDelegate(output: self)
       viewModel.fetchItems()
-
   }
-  
-  private let renderer = Renderer(
-      adapter: CustomTableViewAdapter(),
-      updater: UITableViewUpdater()
-  )
-  
+
   func render() {
     
     var cellNode: [CellNode] = []
     
-    for game in results {
+    for game in viewModel.games {
       cellNode.append(CellNode(GameViewCellComponent(game: game)))
     }
     
@@ -101,8 +100,7 @@ class GameHomeViewController: UIViewController {
 }
 
 extension GameHomeViewController: GamesOutPut {
-    func saveDataAndRender(values: [GameModel]) {
-        results.append(contentsOf: values)
+    func saveDataAndRender() {
         render()
     }
 }
@@ -111,7 +109,8 @@ extension GameHomeViewController: UISearchBarDelegate {
   
   func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
     if let searchText = searchBar.text?.replacingOccurrences(of: " ", with: "%20"), searchText.count >= 3 {
-        results = []
+        viewModel.games.removeAll()
+        renderEmptyView()
         viewModel.searchItems(search: searchText)
     }
     searchBar.resignFirstResponder()
@@ -119,11 +118,12 @@ extension GameHomeViewController: UISearchBarDelegate {
   
   func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
      if searchText.isEmpty {
-       results = []
-       viewModel.searchRemoved = true
+       viewModel.games.removeAll()
+       renderEmptyView()
+       viewModel.searchRemoved = true //reset url to base url
        viewModel.fetchItems()
      } else if let searchText = searchBar.text?.replacingOccurrences(of: " ", with: "%20"), searchText.count >= 3 {
-       results = []
+       viewModel.games.removeAll()
        viewModel.searchItems(search: searchText)
      } else {
        renderEmptyView()
@@ -131,23 +131,31 @@ extension GameHomeViewController: UISearchBarDelegate {
   }
 
   func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+      searchBar.showsCancelButton = true
+      viewModel.games.removeAll()
       renderEmptyView()
   }
+  func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+    searchBar.resignFirstResponder()
+  }
   func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+    searchBar.showsCancelButton = false
     if searchBar.text == "" {
       viewModel.searchRemoved = true
-      results = []
+      viewModel.games.removeAll()
       viewModel.fetchItems()
     }
-    searchBar.resignFirstResponder()
   }
 }
 
 class CustomTableViewAdapter: UITableViewAdapter {
-  override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-    if indexPath.row + 1 == 20 {
-         print("test")
-      }
-  }
   
+  override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    let lastSectionIndex = tableView.numberOfSections - 1
+        let lastRowIndex = tableView.numberOfRows(inSection: lastSectionIndex) - 1
+        if indexPath.section == lastSectionIndex && indexPath.row == lastRowIndex {
+          print("Notification geldi")
+          NotificationCenter.default.post(name: NSNotification.Name("runFetchItems"), object: nil)
+        }
+    }
 }

@@ -10,9 +10,9 @@ import Alamofire
 
 enum GameServiceEndPoint: String {
   
-    static var BASE_URL = "https://api.rawg.io/api/games?key=3be8af6ebf124ffe81d90f514e59856c"
+    static var BASE_URL = "https://api.rawg.io/api/games?key=d034a75038454466bec9e04d774a3336"
     case PATH = "&search={search}"
-    static var DETAIL_URL = "https://api.rawg.io/api/games/{id}?key=3be8af6ebf124ffe81d90f514e59856c"
+    static var DETAIL_URL = "https://api.rawg.io/api/games/{id}?key=d034a75038454466bec9e04d774a3336"
 
     static func path() -> String {
         return BASE_URL
