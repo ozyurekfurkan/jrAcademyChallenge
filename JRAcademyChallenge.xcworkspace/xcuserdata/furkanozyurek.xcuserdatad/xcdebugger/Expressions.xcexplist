@@ -170,6 +170,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "CustomFavoriteTableViewAdapter.tableView(_:commit:forRowAt:):CustomFavoriteAdapter.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "viewController?.favoriteGameList">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "GameHomeViewModel.fetchItems():GameHomeViewModel.swift">
          <PersistentStrings>
             <PersistentString

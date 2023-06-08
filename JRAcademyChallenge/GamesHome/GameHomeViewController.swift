@@ -48,7 +48,9 @@ class GameHomeViewController: UIViewController {
     for game in viewModel.games {
       cellNode.append(CellNode(GameViewCellComponent(game: game)))
     }
-    
+    if viewModel.games.count > 5 {
+      tableView.tableFooterView = LoadingFooterView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 50))
+    }
     let gameSection = Section(id: "gameSection", cells: cellNode)
     renderer.render(gameSection)
   }
@@ -58,7 +60,7 @@ class GameHomeViewController: UIViewController {
     var cellNode: [CellNode] = []
     
     cellNode.append(CellNode(EmptyViewComponent()))
-    
+    tableView.tableFooterView = nil
     let emptySection = Section(id: "emptySection", cells: cellNode)
     renderer.render(emptySection)
   }
@@ -95,7 +97,6 @@ class GameHomeViewController: UIViewController {
           make.right.equalTo(view.snp.right)
     }
     tableView.separatorStyle = .none
-//    tableView.tableFooterView = LoadingFooterView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 50))
   }
 }
 
@@ -110,6 +111,7 @@ extension GameHomeViewController: UISearchBarDelegate {
   func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
     if let searchText = searchBar.text?.replacingOccurrences(of: " ", with: "%20"), searchText.count >= 3 {
         viewModel.games.removeAll()
+        tableView.tableFooterView = nil
         renderEmptyView()
         viewModel.searchItems(search: searchText)
     }
@@ -119,11 +121,13 @@ extension GameHomeViewController: UISearchBarDelegate {
   func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
      if searchText.isEmpty {
        viewModel.games.removeAll()
+       tableView.tableFooterView = nil
        renderEmptyView()
        viewModel.searchRemoved = true //reset url to base url
        viewModel.fetchItems()
      } else if let searchText = searchBar.text?.replacingOccurrences(of: " ", with: "%20"), searchText.count >= 3 {
        viewModel.games.removeAll()
+       tableView.tableFooterView = nil
        viewModel.searchItems(search: searchText)
      } else {
        renderEmptyView()
@@ -133,6 +137,7 @@ extension GameHomeViewController: UISearchBarDelegate {
   func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
       searchBar.showsCancelButton = true
       viewModel.games.removeAll()
+      tableView.tableFooterView = nil
       renderEmptyView()
   }
   func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
@@ -143,6 +148,7 @@ extension GameHomeViewController: UISearchBarDelegate {
     if searchBar.text == "" {
       viewModel.searchRemoved = true
       viewModel.games.removeAll()
+      tableView.tableFooterView = nil
       viewModel.fetchItems()
     }
   }

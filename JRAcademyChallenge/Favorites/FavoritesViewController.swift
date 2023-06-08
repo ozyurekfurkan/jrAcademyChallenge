@@ -35,6 +35,7 @@ class FavoritesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         renderer.target = tableView
+        renderer.adapter.favouritesController = self
         self.view.addSubview(tableView)
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         managedObjectContext = appDelegate.persistentContainer.viewContext
@@ -121,25 +122,28 @@ class FavoritesViewController: UIViewController {
 }
 
 class CustomFavoriteTableViewAdapter: UITableViewAdapter {
-  
-  func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] (_, _, completionHandler) in
-             // Perform deletion logic here
-             self?.deleteItem(at: indexPath)
-             
-             completionHandler(true)
-         }
-         deleteAction.image = UIImage(systemName: "trash")
-         
-         let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
-         configuration.performsFirstActionWithFullSwipe = false
-         
-         return configuration
-     }
-     
-     private func deleteItem(at indexPath: IndexPath) {
-         // Perform the deletion of the item from your data source and update the table view
-       print("delete")
-     }
+  weak var favouritesController: FavoritesViewController?
+
+  func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+    if editingStyle == .delete {
+      guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+        return
+      }
+      let managedObjectContext: NSManagedObjectContext = appDelegate.persistentContainer.viewContext
+      let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Favorite")
+      fetchRequest.predicate = NSPredicate(format: "id == %d", favouritesController?.favoriteGameList[indexPath.row].id ?? "")
+      do {
+        let results = try managedObjectContext.fetch(fetchRequest) as! [NSManagedObject]
+        if let object = results.first {
+          managedObjectContext.delete(object)
+          try managedObjectContext.save()
+        }
+      } catch let error as NSError {
+        print("Could not delete data: \(error), \(error.userInfo)")
+      }
+      favouritesController?.fetchEntities()
+      tableView.reloadData()
+    }
+  }
 }
 

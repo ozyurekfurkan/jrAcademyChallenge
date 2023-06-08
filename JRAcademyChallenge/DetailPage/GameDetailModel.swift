@@ -10,6 +10,7 @@ import Foundation
 struct GameDetailModel: Codable {
   let id: Int?
   let name: String
+  var isFavorited: Bool?
   let backgroundImage: String?
   let description: String?
   let redditUrl: String?

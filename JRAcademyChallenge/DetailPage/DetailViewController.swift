@@ -18,6 +18,7 @@ class DetailViewController: UIViewController {
   
   private let tableView: UITableView = UITableView()
   var viewModel: DetailViewModel = DetailViewModel()
+  var game: GameDetailModel?
   var gameID: Int?
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -28,8 +29,34 @@ class DetailViewController: UIViewController {
     let favoriteButton = UIBarButtonItem(title: "Favorite", style: .plain, target: self, action: #selector(favoriteButtonTapped))
     navigationItem.rightBarButtonItem = favoriteButton
     fetchGameDetail()
-    
   }
+  
+  func checkIfAlreadyFavorited() {
+      guard let name = game?.name else {
+        return
+      }
+      let alreadyFavorited = isGameAlreadyFavorited(name: name)
+      if alreadyFavorited {
+        navigationItem.rightBarButtonItem?.title = "Favorited"
+      }
+    }
+  
+    func isGameAlreadyFavorited(name: String) -> Bool {
+      guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+        return false
+      }
+      let managedContext = appDelegate.persistentContainer.viewContext
+      let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Favorite")
+      fetchRequest.predicate = NSPredicate(format: "name == %@", name)
+      do {
+        let results = try managedContext.fetch(fetchRequest)
+        return results.count > 0
+      } catch let error as NSError {
+        print("Error searching for favorite: \(error), \(error.userInfo)")
+        return false
+      }
+    }
+  
   
   @objc func favoriteButtonTapped() {
     guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
@@ -48,6 +75,10 @@ class DetailViewController: UIViewController {
     fetchRequest.predicate = NSPredicate(format: "id == %d AND name == %@ AND image == %@ AND metacritic == %d AND genres == %@",viewModel.game?.id ?? 0, viewModel.game?.name ?? "", viewModel.game?.backgroundImage ?? "", viewModel.game?.metacritic ?? 0, combinedGenres ?? "")
     do {
       let results = try managedContext.fetch(fetchRequest)
+      if results.count > 0 {
+        showAlert(message: "This game is already in favorites.")
+        return
+      }
     } catch let error as NSError {
       print("Favori arama hatası: \(error), \(error.userInfo)")
     }
@@ -65,6 +96,12 @@ class DetailViewController: UIViewController {
     }
     
   }
+  
+  private func showAlert(message: String) {
+      let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+      alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+      present(alert, animated: true, completion: nil)
+    }
   
   private let renderer = Renderer(
     adapter: UITableViewAdapter(),
@@ -101,6 +138,8 @@ class DetailViewController: UIViewController {
 
 extension DetailViewController: GameDetailOutPut {
   func saveDataAndRender(values: GameDetailModel) {
+    self.game = values
+    checkIfAlreadyFavorited()
     render()
   }
 }
