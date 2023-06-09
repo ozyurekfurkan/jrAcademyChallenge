@@ -135,7 +135,6 @@ class GameDetailView: UIView {
       make.height.equalTo(291)
     }
     gameTitle.snp.makeConstraints { make in
-      make.top.equalTo(safeAreaLayoutGuide.snp.top).offset(232)
       make.left.equalTo(gameImage.snp.left).offset(16)
       make.right.equalTo(gameImage.snp.right).offset(-16)
       make.bottom.equalTo(gameImage.snp.bottom).offset(-16)
@@ -143,7 +142,7 @@ class GameDetailView: UIView {
     gameTitle.textAlignment = .right
     gameTitle.font = UIFont.boldSystemFont(ofSize: 36)
     gameTitle.textColor = .white
-    
+    gameTitle.numberOfLines = 2
     gameDescriptionTitle.snp.makeConstraints { make in
       make.top.equalTo(gameImage.snp.bottom).offset(16)
       make.right.equalTo(safeAreaLayoutGuide.snp.right).offset(-16)
