@@ -16,7 +16,6 @@ protocol IDetailViewModel {
 }
 
 final class DetailViewModel {
-  
   var gameDetailOutPut: GameDetailOutPut?
   var urlString: String?
   var gameIDString: String?
@@ -36,12 +35,10 @@ final class DetailViewModel {
   func fetchDetail() {
     self.urlString = GameServiceEndPoint.detailPath(id: gameIDString)
     if let urlString = urlString {
-      
       gameService.fetchGameDetail(url: urlString) { gameDetailModel in
         if let gameDetailModel = gameDetailModel {
           self.game = gameDetailModel
-          if let game = self.game
-          {
+          if let game = self.game {
             self.gameDetailOutPut?.saveDataAndRender(values: game)
           }
         } else {

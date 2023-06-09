@@ -11,7 +11,6 @@ import Carbon
 import Kingfisher
 
 struct GameViewCellComponent: IdentifiableComponent {
-  
   func shouldContentUpdate(with next: GameViewCellComponent) -> Bool {
     return false
   }
@@ -37,19 +36,18 @@ struct GameViewCellComponent: IdentifiableComponent {
     } else {
       content.metaCriticScoreLabel.text = "N/A"
     }
-   
+    
     if let urlString = game.backgroundImage {
       let url = URL(string: urlString)
       let resizeProcessor = ResizingImageProcessor(referenceSize: CGSize(width: 120, height: 104))
       let imageLoadingOptions: KingfisherOptionsInfo = [
-          .processor(resizeProcessor),
-          .scaleFactor(UIScreen.main.scale),
-          .transition(.fade(0.2)),
+        .processor(resizeProcessor),
+        .scaleFactor(UIScreen.main.scale),
+        .transition(.fade(0.2))
       ]
       content.gameImage.kf.setImage(with: url, options: imageLoadingOptions)
     }
     content.gameID = game.id ?? 0
-    
   }
   
   func referenceSize(in bounds: CGRect) -> CGSize? {
@@ -77,22 +75,21 @@ final class GameViewCell: UIView {
   }
   var gameID: Int?
   var viewController: GameHomeViewController?
-  var gameTitle: UILabel = UILabel()
-  var metaCriticLabel: UILabel = UILabel()
-  var metaCriticScoreLabel: UILabel = UILabel()
-  var gameGenre: UILabel = UILabel()
-  var gameImage: UIImageView = UIImageView()
+  var gameTitle = UILabel()
+  var metaCriticLabel = UILabel()
+  var metaCriticScoreLabel = UILabel()
+  var gameGenre = UILabel()
+  var gameImage = UIImageView()
   
   @objc private func handleTap() {
     guard let viewController = viewController else {
-       return
-     }
+      return
+    }
     viewController.gameID = gameID
     viewController.navigateToDetail()
-   }
+  }
   
   func configure() {
-    
     self.addSubview(gameTitle)
     self.addSubview(metaCriticLabel)
     self.addSubview(metaCriticScoreLabel)
@@ -107,7 +104,6 @@ final class GameViewCell: UIView {
       make.left.equalTo(gameTitle.snp.left)
       make.width.equalTo(76)
       make.height.equalTo(16)
-  
     }
     metaCriticScoreLabel.snp.makeConstraints { make in
       make.left.equalTo(metaCriticLabel.snp.right)

@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 class LoadingFooterView: UIView {
-  private let labelView: UILabel = UILabel()
+  private let labelView = UILabel()
   private let activityIndicatorView: UIActivityIndicatorView = {
     let indicatorView = UIActivityIndicatorView(style: .gray)
     indicatorView.startAnimating()

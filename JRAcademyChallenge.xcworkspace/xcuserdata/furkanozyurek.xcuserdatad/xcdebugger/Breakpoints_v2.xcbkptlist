@@ -14,10 +14,10 @@
             filePath = "JRAcademyChallenge/DetailPage/GameDetailView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "77"
-            endingLineNumber = "77"
-            landmarkName = "init(frame:)"
-            landmarkType = "7">
+            startingLineNumber = "86"
+            endingLineNumber = "86"
+            landmarkName = "GameDetailView"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -78,8 +78,8 @@
             filePath = "JRAcademyChallenge/Favorites/FavoritesViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "102"
-            endingLineNumber = "102"
+            startingLineNumber = "99"
+            endingLineNumber = "99"
             landmarkName = "fetchEntities()"
             landmarkType = "7">
          </BreakpointContent>
@@ -94,10 +94,57 @@
             filePath = "JRAcademyChallenge/GamesHome/GameHomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "116"
-            endingLineNumber = "116"
+            startingLineNumber = "113"
+            endingLineNumber = "113"
             landmarkName = "searchBarSearchButtonClicked(_:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "E676E2E4-52AD-4B26-B41C-1444BAF16077 - 90d4153c46ba246"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "JRAcademyChallenge.GameHomeViewController.searchBarSearchButtonClicked(__C.UISearchBar) -&gt; ()"
+                  moduleName = "JRAcademyChallenge"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/furkanozyurek/Desktop/JRAcademyChallenge/JRAcademyChallenge/GamesHome/GameHomeViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "113"
+                  endingLineNumber = "113"
+                  offsetFromSymbolStart = "80">
+               </Location>
+               <Location
+                  uuid = "E676E2E4-52AD-4B26-B41C-1444BAF16077 - 90d4153c46ba246"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "JRAcademyChallenge.GameHomeViewController.searchBarSearchButtonClicked(__C.UISearchBar) -&gt; ()"
+                  moduleName = "JRAcademyChallenge"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/furkanozyurek/Desktop/JRAcademyChallenge/JRAcademyChallenge/GamesHome/GameHomeViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "113"
+                  endingLineNumber = "113"
+                  offsetFromSymbolStart = "604">
+               </Location>
+               <Location
+                  uuid = "E676E2E4-52AD-4B26-B41C-1444BAF16077 - 90d4153c46ba246"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "JRAcademyChallenge.GameHomeViewController.searchBarSearchButtonClicked(__C.UISearchBar) -&gt; ()"
+                  moduleName = "JRAcademyChallenge"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/furkanozyurek/Desktop/JRAcademyChallenge/JRAcademyChallenge/GamesHome/GameHomeViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "113"
+                  endingLineNumber = "113"
+                  offsetFromSymbolStart = "784">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

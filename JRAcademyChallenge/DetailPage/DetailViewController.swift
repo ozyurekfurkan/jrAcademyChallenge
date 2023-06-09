@@ -15,9 +15,8 @@ protocol GameDetailOutPut {
 }
 
 class DetailViewController: UIViewController {
-  
-  private let tableView: UITableView = UITableView()
-  var viewModel: DetailViewModel = DetailViewModel()
+  private let tableView = UITableView()
+  var viewModel = DetailViewModel()
   var game: GameDetailModel?
   var gameID: Int?
   override func viewDidLoad() {
@@ -32,30 +31,30 @@ class DetailViewController: UIViewController {
   }
   
   func checkIfAlreadyFavorited() {
-      guard let name = game?.name else {
-        return
-      }
-      let alreadyFavorited = isGameAlreadyFavorited(name: name)
-      if alreadyFavorited {
-        navigationItem.rightBarButtonItem?.title = "Favorited"
-      }
+    guard let name = game?.name else {
+      return
     }
+    let alreadyFavorited = isGameAlreadyFavorited(name: name)
+    if alreadyFavorited {
+      navigationItem.rightBarButtonItem?.title = "Favorited"
+    }
+  }
   
-    func isGameAlreadyFavorited(name: String) -> Bool {
-      guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-        return false
-      }
-      let managedContext = appDelegate.persistentContainer.viewContext
-      let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Favorite")
-      fetchRequest.predicate = NSPredicate(format: "name == %@", name)
-      do {
-        let results = try managedContext.fetch(fetchRequest)
-        return results.count > 0
-      } catch let error as NSError {
-        print("Error searching for favorite: \(error), \(error.userInfo)")
-        return false
-      }
+  func isGameAlreadyFavorited(name: String) -> Bool {
+    guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+      return false
     }
+    let managedContext = appDelegate.persistentContainer.viewContext
+    let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Favorite")
+    fetchRequest.predicate = NSPredicate(format: "name == %@", name)
+    do {
+      let results = try managedContext.fetch(fetchRequest)
+      return !results.isEmpty
+    } catch let error as NSError {
+      print("Error searching for favorite: \(error), \(error.userInfo)")
+      return false
+    }
+  }
   
   
   @objc func favoriteButtonTapped() {
@@ -67,15 +66,22 @@ class DetailViewController: UIViewController {
       return
     }
     var combinedGenres: String?
-    if let genres = viewModel.game?.genres{
+    if let genres = viewModel.game?.genres {
       let genreNames = genres.compactMap { $0.name }
       combinedGenres = genreNames.joined(separator: ", ")
     }
     let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Favorite")
-    fetchRequest.predicate = NSPredicate(format: "id == %d AND name == %@ AND image == %@ AND metacritic == %d AND genres == %@",viewModel.game?.id ?? 0, viewModel.game?.name ?? "", viewModel.game?.backgroundImage ?? "", viewModel.game?.metacritic ?? 0, combinedGenres ?? "")
+    fetchRequest.predicate = NSPredicate(
+      format: "id == %d AND name == %@ AND image == %@ AND metacritic == %d AND genres == %@",
+      viewModel.game?.id ?? 0,
+      viewModel.game?.name ?? "",
+      viewModel.game?.backgroundImage ?? "",
+      viewModel.game?.metacritic ?? 0,
+      combinedGenres ?? ""
+    )
     do {
       let results = try managedContext.fetch(fetchRequest)
-      if results.count > 0 {
+      if !results.isEmpty {
         showAlert(message: "This game is already in favorites.")
         return
       }
@@ -94,14 +100,13 @@ class DetailViewController: UIViewController {
     } catch let error as NSError {
       print("Favori kaydedilirken hata oluştu: \(error), \(error.userInfo)")
     }
-    
   }
   
   private func showAlert(message: String) {
-      let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
-      alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-      present(alert, animated: true, completion: nil)
-    }
+    let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+    present(alert, animated: true, completion: nil)
+  }
   
   private let renderer = Renderer(
     adapter: UITableViewAdapter(),
@@ -115,7 +120,6 @@ class DetailViewController: UIViewController {
   }
   
   func render() {
-    
     var cellNode: [CellNode] = []
     
     cellNode.append(CellNode(GameDetailComponent(game: viewModel.game)))
@@ -133,7 +137,6 @@ class DetailViewController: UIViewController {
       make.right.equalTo(view.snp.right)
     }
   }
-  
 }
 
 extension DetailViewController: GameDetailOutPut {

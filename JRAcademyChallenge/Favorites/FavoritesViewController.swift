@@ -12,7 +12,7 @@ import Carbon
 import SnapKit
 
 class FavoritesViewController: UIViewController {
-  private let tableView: UITableView = UITableView()
+  private let tableView = UITableView()
   var managedObjectContext: NSManagedObjectContext!
   var favoriteGameList: [GameModel] = []
   var game: GameModel? = GameModel(
@@ -23,92 +23,89 @@ class FavoritesViewController: UIViewController {
     genres: nil
   )
   var isEmpty: Bool {
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Favorite")
-
-        do {
-            let count = try managedObjectContext.count(for: fetchRequest)
-            return count == 0
-        } catch {
-            return true
+    let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Favorite")
+    
+    do {
+      let cout = try managedObjectContext.count(for: fetchRequest)
+      return cout == 0
+    } catch {
+      return true
+    }
+  }
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    renderer.target = tableView
+    renderer.adapter.favouritesController = self
+    self.view.addSubview(tableView)
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    managedObjectContext = appDelegate.persistentContainer.viewContext
+  }
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    if !isEmpty {
+      fetchEntities()
+    } else {
+      renderEmptyView()
+    }
+  }
+  
+  private let renderer = Renderer(
+    adapter: CustomFavoriteTableViewAdapter(),
+    updater: UITableViewUpdater()
+  )
+  
+  func render() {
+    var cellNode: [CellNode] = []
+    
+    for game in favoriteGameList {
+      cellNode.append(CellNode(GameViewCellComponent(game: game)))
+    }
+    
+    let gameSection = Section(id: "gameSection", cells: cellNode)
+    renderer.render(gameSection)
+  }
+  
+  func renderEmptyView() {
+    var cellNode: [CellNode] = []
+    
+    cellNode.append(CellNode(EmptyViewComponent()))
+    
+    let emptySection = Section(id: "emptySection", cells: cellNode)
+    renderer.render(emptySection)
+  }
+  
+  func fetchEntities() {
+    self.favoriteGameList = []
+    let fetchRequest: NSFetchRequest<Favorite> = Favorite.fetchRequest()
+    
+    do {
+      let result = try managedObjectContext.fetch(fetchRequest)
+      
+      for favorite in result {
+        if let name = favorite.name,
+          let image = favorite.image,
+          let genres = favorite.genres {
+          let genresArray = genres.components(separatedBy: ",")
+          let genreObjects = genresArray.compactMap {
+            Genre(name: $0.trimmingCharacters(in: .whitespacesAndNewlines))
+          }
+          game?.name = name
+          game?.id = Int(favorite.id)
+          game?.metacritic = Int(favorite.metacritic)
+          game?.backgroundImage = image
+          game?.genres = genreObjects
         }
-    }
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        renderer.target = tableView
-        renderer.adapter.favouritesController = self
-        self.view.addSubview(tableView)
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        managedObjectContext = appDelegate.persistentContainer.viewContext
-    }
-    override func viewWillAppear(_ animated: Bool) {
-      super.viewWillAppear(animated)
-      if (!isEmpty) {
-        fetchEntities()
-      } else {
-        renderEmptyView()
-      }
-    }
-  
-    private let renderer = Renderer(
-        adapter: CustomFavoriteTableViewAdapter(),
-        updater: UITableViewUpdater()
-    )
-  
-    func render() {
-      
-      var cellNode: [CellNode] = []
-      
-      for game in favoriteGameList {
-        cellNode.append(CellNode(GameViewCellComponent(game: game)))
-      }
-      
-      let gameSection = Section(id: "gameSection", cells: cellNode)
-      renderer.render(gameSection)
-    }
-  
-    func renderEmptyView() {
-      
-      var cellNode: [CellNode] = []
-      
-      cellNode.append(CellNode(EmptyViewComponent()))
-      
-      let emptySection = Section(id: "emptySection", cells: cellNode)
-      renderer.render(emptySection)
-    }
-  
-    func fetchEntities() {
-          self.favoriteGameList = []
-            let fetchRequest: NSFetchRequest<Favorite> = Favorite.fetchRequest()
-            
-            do {
-                let result = try managedObjectContext.fetch(fetchRequest)
-              
-              for favorite in result {
-                if let name = favorite.name,
-                   let image = favorite.image,
-                   let genres = favorite.genres
-                  {
-                  let genresArray = genres.components(separatedBy: ",")
-                  let genreObjects = genresArray.compactMap {
-                    Genre(name: $0.trimmingCharacters(in: .whitespacesAndNewlines))
-                  }
-                  game?.name = name
-                  game?.id = Int(favorite.id)
-                  game?.metacritic = Int(favorite.metacritic)
-                  game?.backgroundImage = image
-                  game?.genres = genreObjects
-                }
-                if let game = game {
-                  favoriteGameList.append(game)
-                }
-                print(favoriteGameList)
-              }
-              configureTableView()
-              render()
-            } catch {
-                print("Failed to fetch entities: \(error)")
-            }
+        if let game = game {
+          favoriteGameList.append(game)
         }
+        print(favoriteGameList)
+      }
+      configureTableView()
+      render()
+    } catch {
+      print("Failed to fetch entities: \(error)")
+    }
+  }
   
   func configureTableView() {
     tableView.snp.makeConstraints { make in
@@ -123,7 +120,7 @@ class FavoritesViewController: UIViewController {
 
 class CustomFavoriteTableViewAdapter: UITableViewAdapter {
   weak var favouritesController: FavoritesViewController?
-
+  
   func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
     if editingStyle == .delete {
       guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
@@ -146,4 +143,3 @@ class CustomFavoriteTableViewAdapter: UITableViewAdapter {
     }
   }
 }
-

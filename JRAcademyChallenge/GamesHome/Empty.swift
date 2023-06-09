@@ -10,7 +10,6 @@ import Carbon
 import SnapKit
 
 struct EmptyViewComponent: IdentifiableComponent {
-  
   var id: String = "empty"
   
   func shouldContentUpdate(with next: EmptyViewComponent) -> Bool {
@@ -30,7 +29,7 @@ struct EmptyViewComponent: IdentifiableComponent {
 }
 
 class Empty: UIView {
-  var emptyLabel: UILabel = UILabel()
+  var emptyLabel = UILabel()
   
   override init(frame: CGRect) {
     super.init(frame: frame)

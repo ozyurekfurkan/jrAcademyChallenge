@@ -25,9 +25,12 @@ struct GameDetailComponent: IdentifiableComponent {
       let imageLoadingOptions: KingfisherOptionsInfo = [
         .processor(resizeProcessor),
         .scaleFactor(UIScreen.main.scale),
-        .transition(.fade(0.2)),
+        .transition(.fade(0.2))
       ]
-      content.gameImage.kf.setImage(with: url,options: imageLoadingOptions)
+      content.gameImage.kf.setImage(
+        with: url,
+        options: imageLoadingOptions
+      )
     }
     content.gameTitle.text = game?.name
     content.gameDescriptionTitle.text = "Game Description"
@@ -39,7 +42,10 @@ struct GameDetailComponent: IdentifiableComponent {
       let paragraphStyle = NSMutableParagraphStyle()
       paragraphStyle.lineSpacing = 10
 
-      attributedText.addAttribute(.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, attributedText.length))
+      attributedText.addAttribute(
+        .paragraphStyle,
+        value: paragraphStyle,
+        range: NSRange(location: 0, length: attributedText.length))
       content.gameDescriptionText.attributedText = attributedText
       content.gameDescriptionText.lineBreakMode = .byTruncatingTail
     }
@@ -60,15 +66,15 @@ struct GameDetailComponent: IdentifiableComponent {
 }
 
 class GameDetailView: UIView {
-  var gameImage: UIImageView = UIImageView()
-  var gameTitle: UILabel = UILabel()
-  var gameDescriptionTitle: UILabel = UILabel()
-  var gameDescriptionText: UILabel = UILabel()
-  var visitReddit: UILabel = UILabel()
-  var visitWebsite: UILabel = UILabel()
-  var firstline: UIView = UIView()
-  var secondline: UIView = UIView()
-  var thirdline: UIView = UIView()
+  var gameImage = UIImageView()
+  var gameTitle = UILabel()
+  var gameDescriptionTitle = UILabel()
+  var gameDescriptionText = UILabel()
+  var visitReddit = UILabel()
+  var visitWebsite = UILabel()
+  var firstline = UIView()
+  var secondline = UIView()
+  var thirdline = UIView()
   var webURL: String?
   var redditURL: String?
   
@@ -85,26 +91,26 @@ class GameDetailView: UIView {
   }
   
   func setupGestures() {
-      visitReddit.isUserInteractionEnabled = true
-      let tapReddit = UITapGestureRecognizer(target: self, action: #selector(visitRedditTapped))
-      visitReddit.addGestureRecognizer(tapReddit)
-      
-      visitWebsite.isUserInteractionEnabled = true
-      let tapGesture = UITapGestureRecognizer(target: self, action: #selector(visitWebsiteTapped))
-      visitWebsite.addGestureRecognizer(tapGesture)
-      
-      if let urlWeb = webURL {
-        let attributedString = NSMutableAttributedString(string: "Visit website")
-        attributedString.addAttribute(.link, value: urlWeb, range: NSRange(location: 0, length: "Visit website".count))
-        visitWebsite.attributedText = attributedString
-        visitWebsite.textColor = .black
-      }
+    visitReddit.isUserInteractionEnabled = true
+    let tapReddit = UITapGestureRecognizer(target: self, action: #selector(visitRedditTapped))
+    visitReddit.addGestureRecognizer(tapReddit)
     
-      if let urlReddit = redditURL {
-          let attributedString = NSMutableAttributedString(string: "Visit reddit")
-        attributedString.addAttribute(.link, value: urlReddit, range: NSRange(location: 0, length: "Visit reddit".count))
-          visitReddit.attributedText = attributedString
-      }
+    visitWebsite.isUserInteractionEnabled = true
+    let tapGesture = UITapGestureRecognizer(target: self, action: #selector(visitWebsiteTapped))
+    visitWebsite.addGestureRecognizer(tapGesture)
+    
+    if let urlWeb = webURL {
+      let attributedString = NSMutableAttributedString(string: "Visit website")
+      attributedString.addAttribute(.link, value: urlWeb, range: NSRange(location: 0, length: "Visit website".count))
+      visitWebsite.attributedText = attributedString
+      visitWebsite.textColor = .black
+    }
+    
+    if let urlReddit = redditURL {
+      let attributedString = NSMutableAttributedString(string: "Visit reddit")
+      attributedString.addAttribute(.link, value: urlReddit, range: NSRange(location: 0, length: "Visit reddit".count))
+      visitReddit.attributedText = attributedString
+    }
   }
   @objc func visitRedditTapped() {
     if let urlReddit = redditURL, let url = URL(string: urlReddit) {
@@ -204,5 +210,4 @@ class GameDetailView: UIView {
     thirdline.alpha = 0.5
     thirdline.backgroundColor = .lightGray
   }
-  
 }

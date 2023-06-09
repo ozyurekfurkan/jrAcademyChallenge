@@ -17,20 +17,19 @@ protocol IGameHomeViewModel {
 }
 
 final class GameHomeViewModel: IGameHomeViewModel {
-  
   var gameOutPut: GamesOutPut?
-  var isNextPageExist: Bool = false
-  var searchRemoved: Bool = false
+  var isNextPageExist = false
+  var searchRemoved = false
   var nextPageUrl: String?
   var urlString: String?
-
+  
   private func registerNotificationObserver() {
     NotificationCenter.default.addObserver(self, selector: #selector(handleFetchItemsNotification), name: NSNotification.Name("runFetchItems"), object: nil)
   }
   
   @objc private func handleFetchItemsNotification() {
-      if !games.isEmpty {
-        fetchItems()
+    if !games.isEmpty {
+      fetchItems()
     }
   }
   
@@ -54,14 +53,13 @@ final class GameHomeViewModel: IGameHomeViewModel {
     if searchRemoved {
       self.urlString = GameServiceEndPoint.BASE_URL
       searchRemoved = false
-    }
-    else if let isNextPageExist = nextPageUrl {
+    } else if let isNextPageExist = nextPageUrl {
       self.urlString = isNextPageExist
     } else {
       self.urlString = GameServiceEndPoint.BASE_URL
     }
     if let urlString = urlString {
-      gameService.fetchAllDatas(url: urlString) { gameModels,nextPage in
+      gameService.fetchAllDatas(url: urlString) { gameModels, nextPage in
         if let gameModels = gameModels {
           self.games.append(contentsOf: gameModels)
           self.gameOutPut?.saveDataAndRender()
@@ -84,7 +82,7 @@ final class GameHomeViewModel: IGameHomeViewModel {
       self.urlString = GameServiceEndPoint.BASE_URL
     }
     if let search = search {
-      gameService.fetchAllDatas(url: GameServiceEndPoint.searchPath(search: search)) { gameModels,nextPage in
+      gameService.fetchAllDatas(url: GameServiceEndPoint.searchPath(search: search)) { gameModels, nextPage in
         if let gameModels = gameModels {
           self.games.append(contentsOf: gameModels)
           self.gameOutPut?.saveDataAndRender()
@@ -98,5 +96,4 @@ final class GameHomeViewModel: IGameHomeViewModel {
       }
     }
   }
-  
 }
